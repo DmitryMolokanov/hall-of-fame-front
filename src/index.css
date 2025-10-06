@@ -1,16 +1,21 @@
 :root {
-  --bg-color: rgb(238, 234, 234);
-  --text-color: black;
   --header-height: 80px;
 }
 
-[dark] {
-  --bg-color: black;
-  --text-color: white;
-}
 
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.lightTheme {
+  background-color: rgb(255, 255, 255);
+  color: black;
+  transition: .5s;
+}
+
+.darkTheme {
+  background-color: black;
+  color: white;
 }
