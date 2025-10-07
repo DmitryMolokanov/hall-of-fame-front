@@ -1,13 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Audiowide&family=Michroma&family=Prosto+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Russo+One&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&family=Tektur:wght@400..900&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 .header {
+  position: sticky;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: space-between;
   height: var(--header-height);
   width: 100vw;
-  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-header-color);
+  font-family: "Russo One", sans-serif;
+  font-weight: 400;
+  transition: background-color 0.5s;
 }
 
 .headerNav {
   flex-grow: 1;
+  padding: 1rem;
+}
+
+.desktopMenu {
+  display: flex;
+  gap: 1rem;
+}
+
+.menuLink {
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  color: var(--link-color);
+  letter-spacing: 5px;
+}
+
+.mobileMenu {
+  display: none;
+  height: 100%;
 }
 
 .headerSettings {
@@ -22,4 +48,15 @@
   align-items: center;
   padding: 0 1rem;
   cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .desktopMenu {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: flex;
+    align-items: center;
+  }
 }
