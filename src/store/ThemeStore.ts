@@ -1,12 +1,21 @@
 import { ThemeMode, useThemeStoreType } from '@/types/ThemeTypes'
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 
+export const useThemeStore = create<useThemeStoreType>()(
+    persist(
+        (set, get) => ({
+            theme: ThemeMode.LIGHT,
 
-
-export const useThemeStore = create<useThemeStoreType>((set) => ({
-    theme: ThemeMode.LIGHT,
-
-    toggleTheme: () => set((state) => ({ theme: state.theme === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT }))
-
-}))
+            toggleTheme: () => {
+                const newTheme = get().theme === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT
+                set({ theme: newTheme })
+            },
+            setTheme: (theme: ThemeMode) => set({ theme }),
+        }),
+        {
+            name: 'data-theme' // ключ для localStorage
+        }
+    )
+)

@@ -1,6 +1,6 @@
 import cls from '@components/Header/Header.module.scss'
 import darkModeIcon from '@assets/icons/common/lightTheme/dark-mode.svg'
-import userIcon from '@assets/icons/common/lightTheme/user.svg'
+import userDarkIcon from '@assets/icons/common/lightTheme/user.svg'
 import lightModeIcon from '@assets/icons/common/darkTheme/light-mode.svg'
 import userLightIcon from '@assets/icons/common/darkTheme/user-light.svg'
 import { useThemeStore } from '@/store/ThemeStore';
@@ -25,16 +25,8 @@ const HeaderSettings = () => {
                 role='button'
                 className={cls.headerSettingsItem}
             >
-                <img src={theme === ThemeMode.LIGHT ? userIcon : userLightIcon} alt="user" />
+                <img src={theme === ThemeMode.LIGHT ? userDarkIcon : userLightIcon} alt="user" />
             </div>
-
-            <div
-                role='button'
-                className={cls.headerSettingsItem}
-            >
-                <button>Check theme</button>
-            </div>
-
 
         </div>
     )

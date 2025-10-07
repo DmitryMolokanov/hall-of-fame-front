@@ -1,15 +1,13 @@
-import classNames from 'classnames'
+import useTheme from './hooks/useTheme'
 import AppRouter from './router/AppRouter'
-import { useThemeStore } from './store/ThemeStore'
 
 function App() {
 
-  const { theme } = useThemeStore()
-
+  useTheme()
 
   return (
     <>
-      <div className={classNames('lightTheme', { "darkTheme": theme === 'dark' })}>
+      <div className='app'>
         <AppRouter />
       </div>
     </>

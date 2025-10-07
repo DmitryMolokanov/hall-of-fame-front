@@ -3,7 +3,7 @@
   justify-content: space-between;
   height: var(--header-height);
   width: 100vw;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .headerNav {
@@ -15,7 +15,6 @@
   justify-content: flex-end;
   flex-grow: 1;
   padding: 1rem;
-  border-left: 1px;
 }
 
 .headerSettingsItem {
