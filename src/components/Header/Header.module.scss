@@ -25,10 +25,13 @@
 }
 
 .menuLink {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
   padding: 0.5rem 1.5rem;
   cursor: pointer;
   color: var(--link-color);
-  letter-spacing: 5px;
+  letter-spacing: 2px;
 }
 
 .mobileMenu {
@@ -55,6 +58,9 @@
   background-color: var(--menu-bg-color);
   box-shadow: 1px 1px 7px var(--shadow-color);
   transition: 0.5s;
+  img {
+    display: none;
+  }
 }
 
 .mobileMenuContent.visible {

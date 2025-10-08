@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import cls from '../../Header.module.scss'
-import burgerMenuIcon from '@assets/icons/common/menu.svg'
+import burgerMenuIcon from '@assets/icons/menu/menu.svg'
 import Menu from '../Menu/Menu';
 import classNames from 'classnames';
 
