@@ -7,7 +7,8 @@
   display: flex;
   justify-content: space-between;
   height: var(--header-height);
-  width: 100vw;
+  padding: 1rem;
+  box-sizing: border-box;
   background-color: var(--bg-header-color);
   font-family: "Russo One", sans-serif;
   font-weight: 400;
@@ -16,12 +17,12 @@
 
 .headerNav {
   flex-grow: 1;
-  padding: 1rem;
 }
 
 .desktopMenu {
   display: flex;
   gap: 1rem;
+  margin: 0;
 }
 
 .menuLink {
@@ -85,7 +86,6 @@
   display: flex;
   justify-content: flex-end;
   flex-grow: 1;
-  padding: 1rem;
 }
 
 .headerSettingsItem {
