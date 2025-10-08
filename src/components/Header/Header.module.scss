@@ -36,6 +36,45 @@
   height: 100%;
 }
 
+.mobileMenuBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.mobileMenuContent {
+  position: absolute;
+  top: 100%;
+  left: 10px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  line-height: 0;
+  border-radius: 10px;
+  background-color: var(--menu-bg-color);
+  box-shadow: 1px 1px 7px var(--shadow-color);
+  transition: 0.5s;
+}
+
+.mobileMenuContent.visible {
+  max-height: 100vw;
+  overflow: visible;
+  line-height: 1;
+  opacity: 1;
+}
+
+.mobileMenuList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0;
+  padding: 20px 50px 20px 10px;
+  a {
+    padding: 0;
+  }
+}
+
 .headerSettings {
   display: flex;
   justify-content: flex-end;

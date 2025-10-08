@@ -1,11 +1,13 @@
 import cls from '@components/Header/Header.module.scss'
 import darkModeIcon from '@assets/icons/common/dark-mode.svg'
+import lightModeIcon from '@assets/icons/common/light-mode.svg'
 import userIcon from '@assets/icons/common/user.svg'
 import { useThemeStore } from '@/store/ThemeStore';
+import { ThemeMode } from '@/types/ThemeTypes';
 
 const HeaderSettings = () => {
 
-    const { toggleTheme } = useThemeStore()
+    const { theme, toggleTheme } = useThemeStore()
 
     return (
         <div className={cls.headerSettings}>
@@ -14,7 +16,7 @@ const HeaderSettings = () => {
                 className={cls.headerSettingsItem}
                 onClick={toggleTheme}
             >
-                <img src={darkModeIcon} alt="dark_mode" />
+                <img src={theme === ThemeMode.LIGHT ? darkModeIcon : lightModeIcon} alt="dark_mode" />
             </div>
 
             <div

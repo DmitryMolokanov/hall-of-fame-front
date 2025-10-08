@@ -11,7 +11,8 @@
   --text-color: var(--dark-color);
   --link-color: var(--red-color);
   --border-color: var(--dark-color);
-  --shadow-color: rgba(250, 250, 250, .3);
+  --shadow-color: rgba(49, 49, 49, .3);
+  --menu-bg-color: var(--light-color);
 }
 
 :root[data-theme='dark'] {
@@ -20,7 +21,8 @@
   --text-color: var(--light-color);
   --link-color: var(--red-color);
   --border-color: var(--light-color);
-  --shadow-color: none;
+  --shadow-color: rgba(49, 49, 49, .3);
+  --menu-bg-color: #494949;
 }
 
 ul {

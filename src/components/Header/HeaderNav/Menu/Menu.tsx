@@ -1,12 +1,21 @@
 import { Link } from 'react-router-dom';
 import cls from '../../Header.module.scss'
+import { FC } from 'react';
 
-const Menu = () => {
+interface MenuProps {
+    className: string
+}
+
+const Menu: FC<MenuProps> = ({ className }) => {
 
     const navList = [
         {
+            name: 'MAIN',
+            link: '/',
+        },
+        {
             name: 'BOXERS',
-            link: '#',
+            link: '/boxers',
         },
         {
             name: 'КНОПКА',
@@ -16,7 +25,7 @@ const Menu = () => {
 
     return (
         <nav>
-            <ul className={cls.desktopMenu}>
+            <ul className={className}>
                 {
                     navList.map((item) => {
                         return <li>

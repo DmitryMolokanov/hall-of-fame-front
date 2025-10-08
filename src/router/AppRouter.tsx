@@ -1,12 +1,17 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import AppLayout from '../layout/AppLayout';
-import MainPage from '@pages/MainPage';
+import MainPage from '@pages/MainPage/MainPage';
+import BoxersPage from '@/pages/BoxersPage/BoxersPage';
 
 
 const routeList = [
     {
         path: '/',
         element: <MainPage />
+    },
+    {
+        path: '/boxers',
+        element: <BoxersPage />
     }
 ]
 
