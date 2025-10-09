@@ -1,14 +1,86 @@
+@use "@styles//variable";
+
+$mobile-padding: 0 2rem;
+
 .mainPageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
 }
 
 .mainImgContainer {
   width: 100%;
-  height: calc(100vh - var(--header-height) - var(--footer-height));
-  background-color: lightblue;
-  //   img {
-  //     width: 100%;
-  //     height: 100%;
-  //     object-fit: fill;
-  //   }
+  img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+.mainInfoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 50vw;
+}
+
+.paragraph {
+  line-height: 1.6;
+  text-indent: 2rem;
+  text-align: justify;
+}
+
+.firstParagraph {
+  &::first-letter {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--red-color);
+    letter-spacing: 2px;
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  font-style: italic;
+  margin-top: 1rem;
+  font-weight: bold;
+  text-align: center;
+  p {
+    margin: 0.5rem 0;
+  }
+  .footerLast {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    color: var(--red-color);
+  }
+}
+
+@media (max-width: 767px) {
+  .mainImgContainer {
+    img {
+      object-fit: contain;
+    }
+  }
+
+  .title {
+    margin: 1rem 0;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .paragraph {
+    text-indent: 1rem;
+  }
+
+  .mainInfoContainer {
+    max-width: 100vw;
+    padding: $mobile-padding;
+  }
+
+  .footer {
+    padding: $mobile-padding;
+  }
 }
