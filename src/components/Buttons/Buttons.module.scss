@@ -1,0 +1,19 @@
+.btn {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-color);
+  border: 0;
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--red-color);
+  img {
+    transition: 0.3s;
+  }
+  &:hover {
+    img {
+      transform: translateX(-10px);
+    }
+  }
+}

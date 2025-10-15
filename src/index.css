@@ -4,6 +4,9 @@
   /*size*/
   --header-height: 80px;
   --footer-height: 60px;
+  --app-layout-padding: 1rem;
+  --app-layout-height: calc(100vh - var(--header-height) - var(--app-layout-padding * 2) - var(--footer-height));
+  --main-border-radius: 1rem;
   /*color*/
   --dark-color: #313131;
   --light-color: #fafafa;
@@ -18,6 +21,7 @@
   --border-color: var(--dark-color);
   --shadow-color: rgba(49, 49, 49, .3);
   --menu-bg-color: var(--light-color);
+  --card-bg-color: var(--light-color)
 }
 
 :root[data-theme='dark'] {
@@ -27,7 +31,8 @@
   --link-color: var(--red-color);
   --border-color: var(--light-color);
   --shadow-color: rgba(49, 49, 49, .3);
-  --menu-bg-color: #474747;
+  --menu-bg-color: #6e6e6e;
+  --card-bg-color: #474747;
 }
 
 * {

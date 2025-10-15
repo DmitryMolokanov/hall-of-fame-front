@@ -1,4 +1,4 @@
-import { ThemeMode, useThemeStoreType } from '@/types/ThemeTypes'
+import { ThemeMode, useThemeStoreType } from '@/types/themeTypes'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 

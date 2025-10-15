@@ -1,0 +1,32 @@
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.allBoxersCardContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  height: var(--app-layout-height);
+  overflow-y: auto;
+  border-radius: var(--main-border-radius);
+  padding: 1rem;
+  background-color: var(--card-bg-color);
+  box-shadow: 1px 1px 7px var(--shadow-color);
+}
+
+.allBoxersCardName {
+  padding: 0.3rem 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  &:hover {
+    color: var(--red-color);
+  }
+}
+
+@media (max-width: 767px) {
+  .allBoxersCardContainer {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

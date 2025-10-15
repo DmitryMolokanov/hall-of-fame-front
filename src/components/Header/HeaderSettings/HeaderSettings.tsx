@@ -3,7 +3,7 @@ import darkModeIcon from '@assets/icons/common/dark-mode.svg'
 import lightModeIcon from '@assets/icons/common/light-mode.svg'
 import userIcon from '@assets/icons/common/user.svg'
 import { useThemeStore } from '@/store/ThemeStore';
-import { ThemeMode } from '@/types/ThemeTypes';
+import { ThemeMode } from '@/types/themeTypes';
 
 const HeaderSettings = () => {
 
