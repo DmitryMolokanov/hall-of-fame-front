@@ -37,7 +37,6 @@ const BoxerInfoPage: FC<BoxerInfoPageProps> = ({ selectedBoxer, backToAllBoxers 
                     color: statConfig[statKey].color
                 }
             })
-
         return chartData.reverse()
     }
 
@@ -62,8 +61,10 @@ const BoxerInfoPage: FC<BoxerInfoPageProps> = ({ selectedBoxer, backToAllBoxers 
                             }
                         </div>
 
-                        <div className={cls.chartContainer}>
-                            <PieChart data={chartData} />
+                        <div className={cls.chartWrapper}>
+                            <div className={cls.chartContainer}>
+                                <PieChart data={chartData} />
+                            </div>
                         </div>
 
                         <div className={cls.boxerInfoBio}>

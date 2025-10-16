@@ -44,8 +44,8 @@
 }
 
 .boxerInfoImg {
-  width: 20vw;
-  height: 40vh;
+  width: 30vw;
+  height: 60vh;
   img {
     width: 100%;
     height: 100%;
@@ -53,9 +53,15 @@
   }
 }
 
+.chartWrapper{
+display: flex;
+align-items: center;
+height: 60vh;
+}
+
 .chartContainer {
-  height: 40vh;
   width: 20vw;
+  height: 40vh;
 }
 
 .boxerInfoBio {
@@ -64,4 +70,18 @@
   width: 60vw;
   height: auto;
   padding: 1rem;
+}
+
+@media (max-width:767px) {
+  .boxerInfoContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  .boxerInfoContainer{
+    padding: 0;
+  }
+  .boxerInfoImg{
+    width: 100%;
+  }
+
 }

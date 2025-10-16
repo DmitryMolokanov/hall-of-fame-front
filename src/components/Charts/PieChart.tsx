@@ -23,22 +23,6 @@ export const PieChart: FC<PieChartProps> = ({ data }) => (
         arcLabelsSkipAngle={10}
         arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
 
-        defs={[
-            {
-                id: 'knockoutPattern',
-                type: 'patternLines',
-                background: 'inherit',
-                color: 'rgba(233, 250, 3, 1)',
-                rotation: -45,
-                lineWidth: 4,
-                spacing: 8
-            }
-        ]}
-        fill={[
-            {
-                match: { id: 'won' },
-                id: 'knockoutPattern'
-            }
-        ]}
+
     />
 )

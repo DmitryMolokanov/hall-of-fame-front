@@ -43,6 +43,7 @@ const BoxersPage = () => {
           {boxers.map((item) =>
             <div
               className={cls.allBoxersCardName}
+              key={item.id}
               role='button'
               onClick={() => selectBoxer(item)}
             >
