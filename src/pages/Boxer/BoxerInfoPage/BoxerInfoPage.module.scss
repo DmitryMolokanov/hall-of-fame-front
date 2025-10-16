@@ -1,5 +1,8 @@
+@use "@styles//variable";
+
 .pageWrapper {
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
 }
@@ -8,4 +11,57 @@
   display: flex;
   justify-content: flex-start;
   width: 100%;
+}
+
+.boxerCardWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.boxerCard {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  width: 100%;
+  border-radius: var(--main-border-radius);
+  background-color: var(--card-bg-color);
+  box-shadow: 1px 1px 7px var(--shadow-color);
+}
+
+.boxerCardTitle {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.boxerInfoContainer {
+  display: flex;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+}
+
+.boxerInfoImg {
+  width: 20vw;
+  height: 40vh;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.chartContainer {
+  height: 40vh;
+  width: 20vw;
+}
+
+.boxerInfoBio {
+  display: flex;
+  justify-content: center;
+  width: 60vw;
+  height: auto;
+  padding: 1rem;
 }

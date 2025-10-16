@@ -14,3 +14,4 @@ export interface BoxerTypes {
     avatarImg: string | null,
     img: string | null
 }
+
