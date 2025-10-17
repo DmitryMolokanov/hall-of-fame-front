@@ -43,6 +43,14 @@
   height: 100%;
 }
 
+.boxerInfoWrapper {
+  position: sticky;
+  top: 0;
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
 .boxerInfoImg {
   width: 30vw;
   height: 60vh;
@@ -53,10 +61,14 @@
   }
 }
 
-.chartWrapper{
-display: flex;
-align-items: center;
-height: 60vh;
+.dataContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 60vh;
+  box-shadow: 1px 1px 7px var(--shadow-color);
+  border-radius: 1rem;
+  background-color: var(--menu-bg-color);
 }
 
 .chartContainer {
@@ -70,18 +82,42 @@ height: 60vh;
   width: 60vw;
   height: auto;
   padding: 1rem;
+  line-height: 1.6;
 }
 
-@media (max-width:767px) {
+@media (max-width: 767px) {
   .boxerInfoContainer {
     display: flex;
     flex-direction: column;
   }
-  .boxerInfoContainer{
+
+  .boxerInfoContainer {
     padding: 0;
   }
-  .boxerInfoImg{
+
+  .boxerInfoImgChartWrapper {
+    position: static;
+  }
+
+  .boxerInfoImgChartWrapper {
+    display: block;
+  }
+
+  .boxerInfoImg {
     width: 100%;
   }
 
+  .chartWrapper {
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .chartContainer {
+    width: 60vw;
+    height: 20vh;
+  }
+
+  .boxerInfoBio {
+    width: 100%;
+  }
 }
