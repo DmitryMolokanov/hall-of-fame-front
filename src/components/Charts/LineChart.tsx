@@ -26,7 +26,7 @@ export const LineChart: FC<PieChartProps> = ({ bouts, data }) => {
         <div className={cls.chartContainer}>
             <div className={cls.allBouts}>
                 <span>All bouts:</span>
-                <span>{allBouts}</span>
+                <span className={cls.allBoutsValue}>{allBouts}</span>
             </div>
             {data.map((item) => {
                 const percent = getPercent(item)

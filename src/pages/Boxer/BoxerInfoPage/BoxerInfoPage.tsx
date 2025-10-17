@@ -16,7 +16,11 @@ const BoxerInfoPage: FC<BoxerInfoPageProps> = ({ selectedBoxer, backToAllBoxers 
 
     const getBio = () => {
         const statKey = ['name', "born", "died", "induction"]
-        const bioData = Object.entries(selectedBoxer).filter(([key]) => statKey.includes(key))
+        const bioData = Object.entries(selectedBoxer).filter(([key, value]) => {
+            if (value) {
+                return statKey.includes(key)
+            }
+        })
         return bioData
     }
 
@@ -47,9 +51,16 @@ const BoxerInfoPage: FC<BoxerInfoPageProps> = ({ selectedBoxer, backToAllBoxers 
 
                             <div className={cls.dataContainer}>
                                 {bioData.map(([key, value]) => {
-                                    return <div>
-                                        <span>{key}</span>
-                                        <span>{value}</span>
+                                    return <div
+                                        className={cls.dataItemContainer}
+                                        key={key}
+                                    >
+                                        <span className={cls.dataItemKey}>
+                                            {key}:
+                                        </span>
+                                        <span className={cls.dataItemValue}>
+                                            {value}
+                                        </span>
                                     </div>
                                 })}
 

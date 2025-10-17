@@ -5,9 +5,9 @@ import { ChartDataType, StatChartKeyType } from "@/types/chartDataTypes";
 export const getChartData = (selectedBoxer: BoxerTypes) => {
 
     const statConfig: Record<StatChartKeyType, { label: string; color: string }> = {
-        won: { label: 'won', color: '#98fb98ff' },
-        kos: { label: 'kos', color: '#b0e0e6' },
-        lost: { label: 'lost', color: '#cd5c5c' },
+        won: { label: 'won', color: '#3cbb5eff' },
+        kos: { label: 'kos', color: '#4285f4' },
+        lost: { label: 'lost', color: '#d93c44' },
         drew: { label: 'drew', color: '#c0c0c0ff' },
         nc: { label: 'nc', color: '#0f0f0f' },
     }

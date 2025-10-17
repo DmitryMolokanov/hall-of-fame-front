@@ -1,13 +1,18 @@
 .chartContainer {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding-top:1rem;
 }
 
 .allBouts {
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
+  gap: 10px;
+}
+
+.allBoutsValue{
+  font-weight: 600;
 }
 
 .lineContainer {

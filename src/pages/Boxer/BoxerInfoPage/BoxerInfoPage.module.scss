@@ -8,9 +8,14 @@
 }
 
 .backBtnContainer {
+  position: sticky;
+  top: calc(var(--header-height) + 1rem);
+  z-index: 10;
   display: flex;
   justify-content: flex-start;
   width: 100%;
+  padding-left: 2rem;
+
 }
 
 .boxerCardWrapper {
@@ -45,10 +50,11 @@
 
 .boxerInfoWrapper {
   position: sticky;
-  top: 0;
+  top: calc(var(--header-height) + 4.5rem);
   display: flex;
   gap: 10px;
   width: 100%;
+  height: fit-content;
 }
 
 .boxerInfoImg {
@@ -63,12 +69,32 @@
 
 .dataContainer {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
+  gap: 10px;
   height: 60vh;
   box-shadow: 1px 1px 7px var(--shadow-color);
   border-radius: 1rem;
   background-color: var(--menu-bg-color);
+  padding: 1rem;
+}
+
+.dataItemContainer{
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  border-bottom: 2px solid var(--red-color);
+  padding-bottom: 2px;
+}
+
+.dataItemKey{
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.dataItemValue{
+  font-weight: 600;
 }
 
 .chartContainer {
@@ -91,33 +117,25 @@
     flex-direction: column;
   }
 
-  .boxerInfoContainer {
-    padding: 0;
+  .boxerInfoWrapper{
+  display: flex;
+  flex-direction: column;
+  position: static;
   }
 
-  .boxerInfoImgChartWrapper {
-    position: static;
+  .boxerInfoImg{
+  width: 100%;
+  height: 100%;
   }
 
-  .boxerInfoImgChartWrapper {
-    display: block;
+  .chartContainer{
+  width: 100%;
   }
 
-  .boxerInfoImg {
-    width: 100%;
-  }
-
-  .chartWrapper {
-    align-items: flex-start;
-    justify-content: center;
-  }
-
-  .chartContainer {
-    width: 60vw;
-    height: 20vh;
-  }
-
-  .boxerInfoBio {
-    width: 100%;
+  .boxerInfoBio{
+  text-align: justify;
+  width: 100%;
+  padding: 1rem 0;
+  text-indent: 30px;
   }
 }

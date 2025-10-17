@@ -1,13 +1,16 @@
 .btn {
   display: flex;
   align-items: center;
-  background-color: var(--bg-color);
+  background-color: var(--red-color);
   border: 0;
   font-size: 1rem;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   cursor: pointer;
-  color: var(--red-color);
+  color: var(--light-color);
+  border-radius: 1rem;
+  padding-right: 2rem;
+  transition: .5s;
 }
 
 .leftSideMove {
