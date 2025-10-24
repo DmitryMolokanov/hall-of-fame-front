@@ -3,6 +3,7 @@ import cls from './Boxers.module.scss'
 import { boxersApi } from '@/api/boxersApi/boxersApi';
 import { BoxerTypes } from '@/types/boxerTypes';
 import BoxerInfoPage from '../BoxerInfoPage/BoxerInfoPage';
+import BoxerCardName from './components/BoxerCardName/BoxerCardName';
 
 const BoxersPage = () => {
 
@@ -40,15 +41,11 @@ const BoxersPage = () => {
           backToAllBoxers={backToAllBoxers}
         />
         : <div className={cls.allBoxersCardContainer}>
-          {boxers.map((item) =>
-            <div
-              className={cls.allBoxersCardName}
-              key={item.id}
-              role='button'
-              onClick={() => selectBoxer(item)}
-            >
-              <span >{item.name}</span>
-            </div>
+          {boxers.map((boxer) =>
+            <BoxerCardName
+              boxer={boxer}
+              selectBoxer={selectBoxer}
+            />
           )}
         </div>
       }

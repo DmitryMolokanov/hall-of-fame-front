@@ -1,5 +1,5 @@
 import { BoxerTypes } from '@/types/boxerTypes';
-import { FC } from 'react'
+import { FC, useRef } from 'react'
 import cls from './BoxerInfoPage.module.scss'
 import { Button } from '@/components/Buttons/Button';
 import arrowLeft from '@/assets/icons/common/arrow-left.svg'
@@ -12,7 +12,6 @@ interface BoxerInfoPageProps {
 }
 
 const BoxerInfoPage: FC<BoxerInfoPageProps> = ({ selectedBoxer, backToAllBoxers }) => {
-
 
     const getBio = () => {
         const statKey = ['name', "born", "died", "induction"]
@@ -27,6 +26,8 @@ const BoxerInfoPage: FC<BoxerInfoPageProps> = ({ selectedBoxer, backToAllBoxers 
     const bioData = getBio()
 
     const chartData = getChartData(selectedBoxer) // делает выборку параметров для отображения графика (в том числе устанавливает цвет)
+
+
 
     return (
         <div className={cls.pageWrapper}>

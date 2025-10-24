@@ -10,7 +10,7 @@
   color: var(--light-color);
   border-radius: 1rem;
   padding-right: 2rem;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .leftSideMove {
@@ -22,4 +22,12 @@
       transform: translateX(-10px);
     }
   }
+}
+
+.success {
+  background-color: lightgreen;
+}
+
+.danger {
+  background-color: lightcoral;
 }

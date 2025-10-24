@@ -1,5 +1,5 @@
 import { ChartDataType } from '@/types/chartDataTypes'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import cls from './LineCharts.module.scss'
 
 interface PieChartProps {
@@ -8,6 +8,9 @@ interface PieChartProps {
 }
 
 export const LineChart: FC<PieChartProps> = ({ bouts, data }) => {
+
+    const [isMounted, setIsMounted] = useState(false)
+
     const allBouts = Number(bouts)
 
 
@@ -21,6 +24,10 @@ export const LineChart: FC<PieChartProps> = ({ bouts, data }) => {
             return Math.round((statData.value / allBouts) * 100)
         }
     }
+
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
 
     return (
         <div className={cls.chartContainer}>
@@ -45,10 +52,11 @@ export const LineChart: FC<PieChartProps> = ({ bouts, data }) => {
                             className={cls.lineResult}
                             style={
                                 {
-                                    width: `${percent}%`,
+                                    width: isMounted ? `${percent}%` : '0%',
                                     backgroundColor: `${item.color}`,
                                     borderTopRightRadius: percent === 100 ? '1rem' : '',
                                     borderBottomRightRadius: percent === 100 ? '1rem' : '',
+                                    transition: 'width 1s ease-in-out'
                                 }
                             }>
                         </div>
