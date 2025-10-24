@@ -1,4 +1,4 @@
-import ModlaLayout from '@/layout/ModalLayout/ModlaLayout';
+import ModalLayout from '@/layout/ModalLayout/ModalLayout';
 import cls from './ConfirmModal.module.scss'
 import { FC } from 'react';
 import { BoxerTypes } from '@/types/boxerTypes';
@@ -13,7 +13,7 @@ interface ConfirmModalProps {
 
 const ConfirmModal: FC<ConfirmModalProps> = ({ visible, onHide, boxer, confirmClick }) => {
     return (
-        <ModlaLayout
+        <ModalLayout
             visible={visible}
         >
             <div className={cls.container}>
@@ -25,7 +25,7 @@ const ConfirmModal: FC<ConfirmModalProps> = ({ visible, onHide, boxer, confirmCl
                     <Button label='Close' onClick={onHide} variant='danger' />
                 </div>
             </div>
-        </ModlaLayout>
+        </ModalLayout>
     )
 };
 
