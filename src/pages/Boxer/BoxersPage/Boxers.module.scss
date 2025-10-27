@@ -5,11 +5,10 @@
 }
 
 .allBoxersCardContainer {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  height: var(--app-layout-height);
+  columns: 4;
+  column-gap: 10px;
   overflow-y: auto;
+  width: 70vw;
   border-radius: var(--main-border-radius);
   padding: 1rem;
   background-color: var(--card-bg-color);
@@ -20,6 +19,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  break-inside: avoid;
+  gap: 10px;
   padding: 0.3rem 1rem;
   cursor: pointer;
   transition: 0.3s ease;

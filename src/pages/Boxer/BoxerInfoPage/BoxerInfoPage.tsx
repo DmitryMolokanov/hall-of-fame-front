@@ -1,5 +1,5 @@
 import { BoxerTypes } from '@/types/boxerTypes';
-import { FC, useRef } from 'react'
+import { FC } from 'react'
 import cls from './BoxerInfoPage.module.scss'
 import { Button } from '@/components/Buttons/Button';
 import arrowLeft from '@/assets/icons/common/arrow-left.svg'
@@ -23,10 +23,17 @@ const BoxerInfoPage: FC<BoxerInfoPageProps> = ({ selectedBoxer, backToAllBoxers 
         return bioData
     }
 
+    const getTransformedBiography = (bio: string) => {
+        const paragraphsArray = bio.split('<br>')
+        return paragraphsArray
+    }
+
+
     const bioData = getBio()
 
     const chartData = getChartData(selectedBoxer) // делает выборку параметров для отображения графика (в том числе устанавливает цвет)
 
+    const transformedBiography = getTransformedBiography(selectedBoxer.biography) // получаем массив абзацев биографии
 
 
     return (
@@ -76,7 +83,9 @@ const BoxerInfoPage: FC<BoxerInfoPageProps> = ({ selectedBoxer, backToAllBoxers 
                         </div>
 
                         <div className={cls.boxerInfoBio}>
-                            <p>{selectedBoxer.biography}</p>
+                            <p>{transformedBiography.map((paragraph) => {
+                                if (paragraph) return <p>{paragraph}</p>
+                            })}</p>
                         </div>
 
                     </div>
