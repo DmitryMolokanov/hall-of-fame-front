@@ -3,12 +3,15 @@ import cls from './Boxers.module.scss'
 import { boxersApi } from '@/api/boxersApi/boxersApi';
 import { BoxerTypes } from '@/types/boxerTypes';
 import BoxerInfoPage from '../BoxerInfoPage/BoxerInfoPage';
-import BoxerCardName from './components/BoxerCardName/BoxerCardName';
+import Input from '@/components/Input/Input';
+import TableBoxerRow from './components/TableBoxerRow';
+
 
 const BoxersPage = () => {
 
   const [boxers, setBoxers] = useState<BoxerTypes[]>([])
   const [selectedBoxer, setSelectedBoxer] = useState<BoxerTypes | undefined>(undefined)
+  const [search, setSearch] = useState('')
 
   const getBoxers = async () => {
     try {
@@ -28,6 +31,11 @@ const BoxersPage = () => {
     setSelectedBoxer(undefined)
   }
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchData = e.target.value
+    setSearch(searchData)
+  }
+
 
   useEffect(() => {
     getBoxers()
@@ -40,13 +48,38 @@ const BoxersPage = () => {
           selectedBoxer={selectedBoxer}
           backToAllBoxers={backToAllBoxers}
         />
-        : <div className={cls.allBoxersCardContainer}>
-          {boxers.map((boxer) =>
-            <BoxerCardName
-              boxer={boxer}
-              selectBoxer={selectBoxer}
+        : <div>
+          <div className={cls.settingsContainer}>
+            <Input
+              type='text'
+              placeholder='Search'
+              value={search}
+              onChange={handleSearch}
             />
-          )}
+          </div>
+          <div className={cls.allBoxersCardContainer}>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th className={cls.tableRowVisible}>Date of birth</th>
+                  <th className={cls.tableRowVisible}>Date of introduction</th>
+                  <th className={cls.tableRowVisible}>Bouts</th>
+                  <th className={cls.tableRowVisible}>Won</th>
+                  <th className={cls.tableRowVisible}>Won %</th>
+                </tr>
+              </thead>
+              <tbody>
+                {boxers.map((boxer) =>
+                  <TableBoxerRow
+                    boxer={boxer}
+                    selectBoxer={selectBoxer}
+                  />
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       }
     </div>
