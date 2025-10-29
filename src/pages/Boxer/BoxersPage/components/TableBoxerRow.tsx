@@ -7,13 +7,15 @@ import editBtnImgRed from '@assets/icons/common/edit-red.svg'
 import classNames from 'classnames';
 import ConfirmModal from '@/components/Modals/ConfirmModal/ConfirmModal';
 import { boxersApi } from '@/api/boxersApi/boxersApi';
+import React from 'react';
 
 interface TableBoxerRowProps {
     boxer: BoxerTypes
     selectBoxer: (boxer: BoxerTypes) => void
+    ref: React.RefObject<null> | null
 }
 
-const TableBoxerRow: FC<TableBoxerRowProps> = ({ boxer, selectBoxer }) => {
+const TableBoxerRow: FC<TableBoxerRowProps> = ({ boxer, selectBoxer, ref }) => {
 
     const [deleteModalVisible, setDeleteModalVisible] = useState(false)
 
@@ -50,6 +52,7 @@ const TableBoxerRow: FC<TableBoxerRowProps> = ({ boxer, selectBoxer }) => {
                 className={cls.tableRow}
                 role='button'
                 onClick={() => selectBoxer(boxer)}
+                ref={ref}
             >
                 <td>
                     <AvatarImg img={boxer.avatarImg} />
@@ -89,4 +92,6 @@ const TableBoxerRow: FC<TableBoxerRowProps> = ({ boxer, selectBoxer }) => {
     )
 };
 
-export default TableBoxerRow
+const TableBoxerRowMemo = React.memo(TableBoxerRow)
+
+export default TableBoxerRowMemo
