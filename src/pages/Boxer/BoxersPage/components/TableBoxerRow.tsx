@@ -12,10 +12,9 @@ import React from 'react';
 interface TableBoxerRowProps {
     boxer: BoxerTypes
     selectBoxer: (boxer: BoxerTypes) => void
-    ref: React.RefObject<null> | null
 }
 
-const TableBoxerRow: FC<TableBoxerRowProps> = ({ boxer, selectBoxer, ref }) => {
+const TableBoxerRow: FC<TableBoxerRowProps> = ({ boxer, selectBoxer, }) => {
 
     const [deleteModalVisible, setDeleteModalVisible] = useState(false)
 
@@ -52,7 +51,6 @@ const TableBoxerRow: FC<TableBoxerRowProps> = ({ boxer, selectBoxer, ref }) => {
                 className={cls.tableRow}
                 role='button'
                 onClick={() => selectBoxer(boxer)}
-                ref={ref}
             >
                 <td>
                     <AvatarImg img={boxer.avatarImg} />

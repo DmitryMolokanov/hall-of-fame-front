@@ -1,5 +1,5 @@
 import { BoxerTypes } from '@/types/boxerTypes';
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import cls from './BoxerInfoPage.module.scss'
 import { Button } from '@/components/Buttons/Button';
 import arrowLeft from '@/assets/icons/common/arrow-left.svg'
@@ -35,6 +35,8 @@ const BoxerInfoPage: FC<BoxerInfoPageProps> = ({ selectedBoxer, backToAllBoxers 
 
     const transformedBiography = getTransformedBiography(selectedBoxer.biography) // получаем массив абзацев биографии
 
+
+    useEffect(() => window.scrollTo(0, 0), [])
 
     return (
         <div className={cls.pageWrapper}>

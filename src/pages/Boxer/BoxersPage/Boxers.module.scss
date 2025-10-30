@@ -6,6 +6,10 @@
   align-items: center;
 }
 
+.allBoxersHidden {
+  display: none;
+}
+
 .allBoxersCardContainer {
   border-radius: var(--main-border-radius);
   padding: 1rem;
@@ -13,18 +17,10 @@
   box-shadow: 1px 1px 7px var(--shadow-color);
 }
 
-// .allBoxersCardData {
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   gap: 10px;
-//   padding: 0.3rem 1rem;
-//   border-bottom: 1px solid var(--red-color);
-//   &:hover {
-//     background-color: var(--red-color);
-//     color: var(--light-color);
-//   }
-// }
+.settingsContainer {
+  padding: 1rem;
+  padding-left: 0;
+}
 
 .tableRow {
   border-bottom: 2px solid var(--red-color);
@@ -69,6 +65,10 @@
   .allBoxersCardContainer {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
+  }
+
+  .settingsContainer {
+    padding-right: 0;
   }
 
   .tableRowVisible {

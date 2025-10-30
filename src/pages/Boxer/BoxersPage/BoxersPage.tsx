@@ -1,11 +1,12 @@
-import { useDeferredValue, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import cls from './Boxers.module.scss'
 import { boxersApi } from '@/api/boxersApi/boxersApi';
 import { BoxerTypes } from '@/types/boxerTypes';
 import BoxerInfoPage from '../BoxerInfoPage/BoxerInfoPage';
 import Input from '@/components/Input/Input';
-import TableBoxerRowMemo from './components/TableBoxerRow';
 import useDebounce from '@/hooks/useDebounce';
+import BoxersTable from './components/BoxersTable/BoxersTable';
+import classNames from 'classnames';
 
 
 const BoxersPage = () => {
@@ -15,18 +16,23 @@ const BoxersPage = () => {
   const [offset, setOffset] = useState(0)
   const [hasMoreLoad, setHasMoreLoad] = useState(true)
   const [search, setSearch] = useState('')
+  const [scrollY, setScrollY] = useState<number>(0)
 
   const ref = useRef(null)
-  const debounceSearchValue = useDebounce(search, 300)
+  const debounceSearchValue = useDebounce(search, 500)
 
   const limit = 20
 
   //--------------- API -------------------------//
-  const getBoxers = async (limit: number, offset: number) => {
+  const getBoxers = async (limit: number, offset: number, notSearch?: boolean) => {
     try {
       const response = await boxersApi.getBoxers(limit, offset)
       if (response.data.length) {
-        setBoxers([...boxers, ...response.data])
+        if (!notSearch) {
+          setBoxers([...boxers, ...response.data])
+        } else {
+          setBoxers(response.data)
+        }
         setOffset(prev => prev + limit)
       } else {
         setHasMoreLoad(false)
@@ -48,12 +54,14 @@ const BoxersPage = () => {
   }
   //---------------------------------------------//
 
-  const selectBoxer = (item: BoxerTypes) => {
+  const selectBoxer = useCallback((item: BoxerTypes) => {
     setSelectedBoxer(item)
-  }
+    setScrollY(window.scrollY)
+  }, [])
 
   const backToAllBoxers = () => {
     setSelectedBoxer(undefined)
+    setHasMoreLoad(true)
   }
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,35 +71,50 @@ const BoxersPage = () => {
 
 
   useEffect(() => {
-    if (hasMoreLoad) {
+    if (hasMoreLoad && !selectedBoxer) {
       const observer = new IntersectionObserver(([entry]) => {
         if (entry.isIntersecting) {
           console.log('intersection')
-          getBoxers(limit, offset)
+          getBoxers(limit, offset, false)
         }
+      }, {
+        rootMargin: '100px'
       })
       if (ref.current) observer.observe(ref.current)
       return () => observer.disconnect()
     }
-  }, [ref, offset, hasMoreLoad])
+  }, [ref, offset, hasMoreLoad, selectedBoxer])
+
 
   useEffect(() => {
-    if (debounceSearchValue) {
+    if (debounceSearchValue.length) {
       searchBoxers(debounceSearchValue)
     } else {
       setOffset(0)
-      getBoxers(limit, 0)
+      getBoxers(limit, 0, true)
     }
   }, [debounceSearchValue])
 
+
+  useLayoutEffect(() => {
+    // для возвразения скрола на то место с которого ушел
+    if (!selectedBoxer) {
+      window.scrollTo(0, scrollY)
+    }
+  }, [selectedBoxer, scrollY])
+
+
   return (
-    <div className={cls.pageContainer}>
-      {selectedBoxer
-        ? <BoxerInfoPage
+    <>
+      {selectedBoxer &&
+        <BoxerInfoPage
           selectedBoxer={selectedBoxer}
           backToAllBoxers={backToAllBoxers}
         />
-        : <div>
+      }
+
+      <div className={cls.pageContainer}>
+        <div className={classNames({ [cls.allBoxersHidden]: selectedBoxer })}>
           <div className={cls.settingsContainer}>
             <Input
               type='text'
@@ -101,33 +124,15 @@ const BoxersPage = () => {
             />
           </div>
           <div className={cls.allBoxersCardContainer}>
-            <table>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Name</th>
-                  <th className={cls.tableRowVisible}>Date of birth</th>
-                  <th className={cls.tableRowVisible}>Date of introduction</th>
-                  <th className={cls.tableRowVisible}>Bouts</th>
-                  <th className={cls.tableRowVisible}>Won</th>
-                  <th className={cls.tableRowVisible}>Won %</th>
-                </tr>
-              </thead>
-              <tbody>
-                {boxers.map((boxer) =>
-                  <TableBoxerRowMemo
-                    boxer={boxer}
-                    selectBoxer={selectBoxer}
-                    ref={ref}
-                  />
-                )}
-              </tbody>
-            </table>
+            <BoxersTable
+              boxers={boxers}
+              selectBoxer={selectBoxer}
+            />
             <div ref={ref} className={cls.observerTrigger}></div>
           </div>
         </div>
-      }
-    </div>
+      </div>
+    </>
   )
 };
 

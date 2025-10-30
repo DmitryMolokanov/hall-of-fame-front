@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import cls from './AvatarImg.module.scss'
 
 interface AvatarImgProps {
@@ -9,7 +9,7 @@ const AvatarImg: FC<AvatarImgProps> = ({ img }) => {
     return (
         img
             ? <div className={cls.avatarImgContainer}>
-                <img src={img} alt="avatar" />
+                <img src={img} alt="avatar" loading='lazy' />
             </div>
             : <div className={cls.avatarImgContainerEmpty}>
             </div>
