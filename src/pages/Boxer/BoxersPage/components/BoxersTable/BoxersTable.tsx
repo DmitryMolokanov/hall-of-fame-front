@@ -48,12 +48,13 @@ const BoxersTable: FC<BoxersTableProps> = ({ boxers, selectBoxer, handleSortTabl
     ]
 
     return (
-        <table>
+        <table className={cls.boxersTable}>
             <thead >
                 <tr>
                     <th></th>
                     {tableThList.map((th) =>
                         <th
+                            key={th.bdName}
                             className={classNames(
                                 th.className,
                                 {

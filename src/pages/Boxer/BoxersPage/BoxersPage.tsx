@@ -13,12 +13,13 @@ const BoxersPage = () => {
 
   const [boxers, setBoxers] = useState<BoxerTypes[]>([])
   const [selectedBoxer, setSelectedBoxer] = useState<BoxerTypes | undefined>(undefined)
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState<string | undefined>(undefined)
   const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC'>('ASC')
   const [sortBy, setSortBy] = useState<SortBoxerType>('name')
   const [scrollY, setScrollY] = useState<number>(0)
   const [offset, setOffset] = useState(0)
   const [hasMoreLoad, setHasMoreLoad] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
   const ref = useRef(null)
   const debounceSearchValue = useDebounce(search, 500)
@@ -26,25 +27,29 @@ const BoxersPage = () => {
   const limit = 20
 
   //--------------- API -------------------------//
-  const getBoxers = async (limit: number, offset: number, sortOrder: 'ASC' | 'DESC', sortBy: string,) => {
+  const getBoxers = useCallback(async (limit: number, offset: number, sortOrder: 'ASC' | 'DESC', sortBy: string,) => {
+    setIsLoading(true)
     try {
       const response = await boxersApi.getBoxers(limit, offset, sortOrder, sortBy)
       if (response.data.length) {
         if (offset > 0) {
           // для бесконечной загрузки
           setBoxers([...boxers, ...response.data])
+          setOffset(boxers.length + limit)
         } else {
           // для первоначальной загрузки
           setBoxers(response.data)
+          setOffset(0 + limit)
         }
-        setOffset(prev => prev + limit)
       } else {
         setHasMoreLoad(false)
       }
     } catch (err) {
       console.log(err)
+    } finally {
+      setIsLoading(false)
     }
-  }
+  }, [boxers])
 
   const searchBoxers = async (search: string) => {
     try {
@@ -67,7 +72,7 @@ const BoxersPage = () => {
   const backToAllBoxers = () => {
     setSelectedBoxer(undefined)
     // если не поиск, возвращаемся к ленивой загрузке
-    if (!search.length) {
+    if (search !== undefined && !search.length) {
       setHasMoreLoad(true)
     }
   }
@@ -78,6 +83,7 @@ const BoxersPage = () => {
   }
 
   const handleSortTable = (bdName: SortBoxerType | null) => {
+    setSearch('')
     if (bdName) {
       setSortBy(bdName)
       if (sortOrder === 'ASC') {
@@ -88,8 +94,10 @@ const BoxersPage = () => {
     }
   }
 
+  useEffect(() => console.log(boxers, offset), [boxers, offset])
 
   useEffect(() => {
+    // подгрузка
     if (hasMoreLoad && !selectedBoxer) {
       const observer = new IntersectionObserver(([entry]) => {
         if (entry.isIntersecting) {
@@ -102,16 +110,20 @@ const BoxersPage = () => {
       if (ref.current) observer.observe(ref.current)
       return () => observer.disconnect()
     }
-  }, [ref, offset, hasMoreLoad, selectedBoxer, sortOrder, sortBy])
+  }, [ref, offset, hasMoreLoad, selectedBoxer, sortOrder, sortBy, getBoxers])
 
 
   useEffect(() => {
-    if (debounceSearchValue.length) {
-      searchBoxers(debounceSearchValue)
-    } else {
-      setOffset(0)
-      setHasMoreLoad(true)
-      getBoxers(limit, 0, sortOrder, sortBy)
+    // поиск
+    if (debounceSearchValue !== undefined) {
+      if (debounceSearchValue.length) {
+        searchBoxers(debounceSearchValue)
+      } else {
+        setOffset(0)
+        setHasMoreLoad(true)
+        setBoxers([])
+        getBoxers(limit, 0, sortOrder, sortBy)
+      }
     }
   }, [debounceSearchValue, sortOrder, sortBy])
 
@@ -151,6 +163,7 @@ const BoxersPage = () => {
               sortBy={sortBy}
             />
             <div ref={ref} className={cls.observerTrigger}></div>
+            {isLoading && <div>Loading ...</div>}
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import cls from './Input.module.scss'
 interface InputProps {
     type: string
     placeholder: string
-    value: string
+    value: string | undefined
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
