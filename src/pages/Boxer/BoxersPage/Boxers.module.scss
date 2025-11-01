@@ -41,6 +41,25 @@
   }
 }
 
+.tableHeadTh {
+  padding: 1rem;
+}
+
+.thHighlighted {
+  background-color: var(--red-color);
+  color: var(--text-color);
+}
+
+.thHover {
+  cursor: pointer;
+  transition: 0.3s ease;
+  border-radius: 1rem;
+  &:hover {
+    background-color: var(--red-color);
+    color: var(--text-color);
+  }
+}
+
 .tableRowBtnsContainer {
   display: flex;
   gap: 5px;

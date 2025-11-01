@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import cls from './Boxers.module.scss'
 import { boxersApi } from '@/api/boxersApi/boxersApi';
-import { BoxerTypes } from '@/types/boxerTypes';
+import { BoxerTypes, SortBoxerType } from '@/types/boxerTypes';
 import BoxerInfoPage from '../BoxerInfoPage/BoxerInfoPage';
 import Input from '@/components/Input/Input';
 import useDebounce from '@/hooks/useDebounce';
@@ -13,10 +13,12 @@ const BoxersPage = () => {
 
   const [boxers, setBoxers] = useState<BoxerTypes[]>([])
   const [selectedBoxer, setSelectedBoxer] = useState<BoxerTypes | undefined>(undefined)
+  const [search, setSearch] = useState('')
+  const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC'>('ASC')
+  const [sortBy, setSortBy] = useState<SortBoxerType>('name')
+  const [scrollY, setScrollY] = useState<number>(0)
   const [offset, setOffset] = useState(0)
   const [hasMoreLoad, setHasMoreLoad] = useState(true)
-  const [search, setSearch] = useState('')
-  const [scrollY, setScrollY] = useState<number>(0)
 
   const ref = useRef(null)
   const debounceSearchValue = useDebounce(search, 500)
@@ -24,13 +26,15 @@ const BoxersPage = () => {
   const limit = 20
 
   //--------------- API -------------------------//
-  const getBoxers = async (limit: number, offset: number, notSearch?: boolean) => {
+  const getBoxers = async (limit: number, offset: number, sortOrder: 'ASC' | 'DESC', sortBy: string,) => {
     try {
-      const response = await boxersApi.getBoxers(limit, offset)
+      const response = await boxersApi.getBoxers(limit, offset, sortOrder, sortBy)
       if (response.data.length) {
-        if (!notSearch) {
+        if (offset > 0) {
+          // для бесконечной загрузки
           setBoxers([...boxers, ...response.data])
         } else {
+          // для первоначальной загрузки
           setBoxers(response.data)
         }
         setOffset(prev => prev + limit)
@@ -47,6 +51,7 @@ const BoxersPage = () => {
       const response = await boxersApi.getSearchBoxers(search)
       if (response.status >= 200 && response.status < 300) {
         setBoxers(response.data)
+        setHasMoreLoad(false)
       }
     } catch (err) {
       console.log(err)
@@ -61,12 +66,26 @@ const BoxersPage = () => {
 
   const backToAllBoxers = () => {
     setSelectedBoxer(undefined)
-    setHasMoreLoad(true)
+    // если не поиск, возвращаемся к ленивой загрузке
+    if (!search.length) {
+      setHasMoreLoad(true)
+    }
   }
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchData = e.target.value
     setSearch(searchData)
+  }
+
+  const handleSortTable = (bdName: SortBoxerType | null) => {
+    if (bdName) {
+      setSortBy(bdName)
+      if (sortOrder === 'ASC') {
+        setSortOrder('DESC')
+      } else {
+        setSortOrder('ASC')
+      }
+    }
   }
 
 
@@ -75,7 +94,7 @@ const BoxersPage = () => {
       const observer = new IntersectionObserver(([entry]) => {
         if (entry.isIntersecting) {
           console.log('intersection')
-          getBoxers(limit, offset, false)
+          getBoxers(limit, offset, sortOrder, sortBy)
         }
       }, {
         rootMargin: '100px'
@@ -83,7 +102,7 @@ const BoxersPage = () => {
       if (ref.current) observer.observe(ref.current)
       return () => observer.disconnect()
     }
-  }, [ref, offset, hasMoreLoad, selectedBoxer])
+  }, [ref, offset, hasMoreLoad, selectedBoxer, sortOrder, sortBy])
 
 
   useEffect(() => {
@@ -91,9 +110,10 @@ const BoxersPage = () => {
       searchBoxers(debounceSearchValue)
     } else {
       setOffset(0)
-      getBoxers(limit, 0, true)
+      setHasMoreLoad(true)
+      getBoxers(limit, 0, sortOrder, sortBy)
     }
-  }, [debounceSearchValue])
+  }, [debounceSearchValue, sortOrder, sortBy])
 
 
   useLayoutEffect(() => {
@@ -127,6 +147,8 @@ const BoxersPage = () => {
             <BoxersTable
               boxers={boxers}
               selectBoxer={selectBoxer}
+              handleSortTable={handleSortTable}
+              sortBy={sortBy}
             />
             <div ref={ref} className={cls.observerTrigger}></div>
           </div>
