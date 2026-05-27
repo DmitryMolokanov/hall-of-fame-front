@@ -32,7 +32,7 @@
   --border-color: var(--light-color);
   --shadow-color: rgba(49, 49, 49, .3);
   --menu-bg-color: #6e6e6e;
-  --card-bg-color: #474747;
+  --card-bg-color: #484848;
 }
 
 * {
@@ -46,6 +46,11 @@ ul {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 

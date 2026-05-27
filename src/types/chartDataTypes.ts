@@ -6,3 +6,4 @@ export interface ChartDataType {
 }
 
 
+export type StatChartKeyType = 'won' | 'kos' | 'lost' | 'drew' | 'nc'

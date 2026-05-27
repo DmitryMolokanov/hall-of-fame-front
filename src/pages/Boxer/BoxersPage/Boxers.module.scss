@@ -1,32 +1,104 @@
+@use "@styles//variable";
+
 .pageContainer {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.allBoxersHidden {
+  display: none;
+}
+
 .allBoxersCardContainer {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  height: var(--app-layout-height);
-  overflow-y: auto;
+  min-width: 70vw;
+  min-height: 70vh;
   border-radius: var(--main-border-radius);
   padding: 1rem;
   background-color: var(--card-bg-color);
   box-shadow: 1px 1px 7px var(--shadow-color);
 }
 
-.allBoxersCardName {
-  padding: 0.3rem 1rem;
+.settingsContainer {
+  padding: 1rem;
+  padding-left: 0;
+}
+
+.boxersTable {
+  margin-top: 10px;
+  min-width: 100%;
+}
+
+.tableHeadTh {
+  text-align: start;
+  padding: 0.7rem 1rem;
+}
+
+.thHighlighted {
+  background-color: var(--red-color);
+  color: var(--text-color);
+}
+
+.thHover {
   cursor: pointer;
   transition: 0.3s ease;
+  border-radius: 1rem;
   &:hover {
-    color: var(--red-color);
+    background-color: var(--red-color);
+    color: var(--text-color);
+  }
+}
+
+.tableRow {
+  border-bottom: 2px solid var(--red-color);
+  transition: 0.3s ease;
+  cursor: pointer;
+
+  td {
+    padding: 1rem;
+  }
+
+  &:hover {
+    background-color: var(--red-color);
+    color: var(--light-color);
+
+    .tableRowBtnIcon {
+      filter: brightness(100);
+    }
+  }
+}
+
+.tableRowBtnsContainer {
+  display: flex;
+  gap: 5px;
+
+  button {
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+
+    &:hover {
+      border-radius: 5px;
+      background-color: var(--light-color);
+      .tableRowBtnIcon {
+        filter: none;
+      }
+    }
   }
 }
 
 @media (max-width: 767px) {
   .allBoxersCardContainer {
+    display: grid;
     grid-template-columns: repeat(1, 1fr);
+  }
+
+  .settingsContainer {
+    padding-right: 0;
+  }
+
+  .tableRowVisible {
+    display: none;
   }
 }

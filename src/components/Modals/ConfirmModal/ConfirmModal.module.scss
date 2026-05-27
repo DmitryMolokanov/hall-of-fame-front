@@ -1,0 +1,18 @@
+@use "@/styles/_variable.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 20vw;
+  height: 10vw;
+  background-color: white;
+  border-radius: var(--main-border-radius);
+  padding: 1rem;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}

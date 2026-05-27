@@ -15,3 +15,4 @@ export interface BoxerTypes {
     img: string | null
 }
 
+export type SortBoxerType = 'name' | 'born' | 'induction' | 'bouts' | 'won'
