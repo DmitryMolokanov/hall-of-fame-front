@@ -7,43 +7,38 @@ const MainPage = () => {
 
     return (
         <div className={cls.mainPageWrapper}>
-            <div className={cls.mainImgContainer}>
-                <img src={mainImage} alt="international boxing hall of fame" />
-            </div>
-
-            <article className={cls.mainInfoContainer}>
-                <AnimationWrapper>
-                    <header>
-                        <h1 className={cls.title}>
-                            International Boxing Hall of Fame
-                        </h1>
-                    </header>
-                </AnimationWrapper>
-
-                <AnimationWrapper>
-                    <p className={cls.paragraph}>
-                        Step into a hallowed space where the echoes of thunderous punches, the roar of the crowd, and the unwavering spirit of champions converge.
-                        The International Boxing Hall of Fame (IBHOF) stands as the ultimate testament to the enduring power and captivating drama of boxing.
-                        This is  more than just a museum; this is a living archive,
-                        a global center dedicated to honoring the iconic figures who have defined this ancient and noble sport,
-                        and to meticulously preserving its rich, often untold, history for generations to come.
-                        Whether you are a lifelong aficionado who has lived through every knockout and every controversial decision,
-                        or a newcomer discovering the artistry and courage within the squared circle, our virtual gates are wide open,
-                        inviting you to explore the compelling narratives that have shaped boxing into the universally celebrated phenomenon it is today.
+            <section className={cls.hero}>
+                <img src={mainImage} alt="International Boxing Hall of Fame" />
+                <div className={cls.heroOverlay} />
+                <div className={cls.heroContent}>
+                    <span className={cls.heroKicker}>Canastota, New York · Est. 1990</span>
+                    <h1 className={cls.heroTitle}>
+                        International Boxing Hall of Fame
+                    </h1>
+                    <p className={cls.heroTagline}>
+                        Honoring the icons, preserving the legacy, and celebrating the enduring drama of the squared circle.
                     </p>
-                </AnimationWrapper>
-            </article>
+                </div>
+            </section>
 
-            <article className={cls.mainInfoContainer}>
-                <AnimationWrapper>
-                    <header>
-                        <h3 className={cls.title}>
-                            The Genesis of a Dream: Laying the Foundation for Boxing’s Pantheon
-                        </h3>
-                    </header>
-                </AnimationWrapper>
+            <AnimationWrapper>
+                <p className={cls.lead}>
+                    Step into a hallowed space where the echoes of thunderous punches, the roar of the crowd, and the unwavering spirit of champions converge.
+                    The International Boxing Hall of Fame (IBHOF) stands as the ultimate testament to the enduring power and captivating drama of boxing.
+                    This is  more than just a museum; this is a living archive,
+                    a global center dedicated to honoring the iconic figures who have defined this ancient and noble sport,
+                    and to meticulously preserving its rich, often untold, history for generations to come.
+                    Whether you are a lifelong aficionado who has lived through every knockout and every controversial decision,
+                    or a newcomer discovering the artistry and courage within the squared circle, our virtual gates are wide open,
+                    inviting you to explore the compelling narratives that have shaped boxing into the universally celebrated phenomenon it is today.
+                </p>
+            </AnimationWrapper>
 
-                <AnimationWrapper>
+            <AnimationWrapper>
+                <article className={cls.section}>
+                    <h2 className={classNames(cls.title, cls.sectionTitle)}>
+                        The Genesis of a Dream: Laying the Foundation for Boxing’s Pantheon
+                    </h2>
                     <p className={cls.paragraph}>
                         The desire to formally recognize and immortalize boxing’s greatest talents is not a new one.
                         For decades, as the sport produced an astonishing lineage of heroes and spectacles, a void was felt – the absence of a centralized,
@@ -57,20 +52,15 @@ const MainPage = () => {
                         behind the scenes, kept the engine of the sport running.The concept was to create a comprehensive tapestry,
                         woven with the threads of every significant contribution to boxing’s storied existence.
                     </p>
-                </AnimationWrapper>
-            </article>
+                </article>
+            </AnimationWrapper>
 
-            <article className={cls.mainInfoContainer}>
-                <AnimationWrapper>
-                    <header>
-                        <h3 className={cls.title}>
-                            From Vision to Cornerstone: The Transformative Development of the IBHOF
-                        </h3>
-                    </header>
-                </AnimationWrapper>
-
-                <AnimationWrapper>
-                    <p className={classNames(cls.paragraph, [cls.firstParagraph])}>
+            <AnimationWrapper>
+                <article className={cls.section}>
+                    <h2 className={classNames(cls.title, cls.sectionTitle)}>
+                        From Vision to Cornerstone: The Transformative Development of the IBHOF
+                    </h2>
+                    <p className={classNames(cls.paragraph, cls.firstParagraph)}>
                         The path from conceptualization to the establishment of a physical institution was a arduous but inspiring journey,
                         fueled by the unwavering passion and collective effort of boxing enthusiasts, historians, and former fighters.
                         While various initiatives were explored throughout the mid-to-late 20th century,
@@ -95,20 +85,15 @@ const MainPage = () => {
                         This landmark event wasn’t just the inauguration of a building; it was the formal christening of a sanctuary,
                         a place forever consecrated to the recognition, preservation, and celebration of boxing’s most extraordinary individuals and moments.
                     </p>
-                </AnimationWrapper>
-            </article>
+                </article>
+            </AnimationWrapper>
 
-            <article className={cls.mainInfoContainer}>
-                <AnimationWrapper>
-                    <header>
-                        <h3 className={cls.title}>
-                            An Evolving Pantheon: The Continuous Growth and Profound Impact of the IBHOF
-                        </h3>
-                    </header>
-                </AnimationWrapper>
-
-                <AnimationWrapper>
-                    <p className={classNames(cls.paragraph, [cls.firstParagraph])}>
+            <AnimationWrapper>
+                <article className={cls.section}>
+                    <h2 className={classNames(cls.title, cls.sectionTitle)}>
+                        An Evolving Pantheon: The Continuous Growth and Profound Impact of the IBHOF
+                    </h2>
+                    <p className={classNames(cls.paragraph, cls.firstParagraph)}>
                         Since its auspicious beginnings, the International Boxing Hall of Fame has transcended its role as a static museum,
                         evolving into a dynamic and vibrant testament to the sport’s continuous evolution and its ever-expanding pantheon of greatness.
                         Each year, a distinguished class of inductees is meticulously selected through a rigorous and highly respected process.
@@ -138,16 +123,18 @@ const MainPage = () => {
                         and an awe-inspiring destination that captivates and educates all who are drawn to the raw emotion,
                         strategic brilliance, and enduring dignity of the prize ring.
                     </p>
-                </AnimationWrapper>
-            </article>
-            <footer className={cls.footer}>
-                <p><span> Immerse yourself in the compelling stories</span></p>
-                <p><span>Relive the unforgettable moments</span></p>
-                <p><span>Celebrate the immortal legends</span></p>
-                <p><span> Your journey into the heart of boxing history begins here</span></p>
-                <p className={cls.footerLast}><span>Welcome to the International Boxing Hall of Fame!</span> </p>
-            </footer>
+                </article>
+            </AnimationWrapper>
 
+            <AnimationWrapper>
+                <footer className={cls.cta}>
+                    <p>Immerse yourself in the compelling stories</p>
+                    <p>Relive the unforgettable moments</p>
+                    <p>Celebrate the immortal legends</p>
+                    <p>Your journey into the heart of boxing history begins here</p>
+                    <p className={cls.ctaTitle}>Welcome to the International Boxing Hall of Fame!</p>
+                </footer>
+            </AnimationWrapper>
         </div>
     )
 };

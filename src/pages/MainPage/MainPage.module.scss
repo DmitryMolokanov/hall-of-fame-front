@@ -1,34 +1,152 @@
 @use "@styles//variable";
 
-$mobile-padding: 0 2rem;
+$content-max-width: 60rem;
+$mobile-padding: 0 1.5rem;
 
 .mainPageWrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
+  gap: 2.5rem;
+  padding-bottom: 3rem;
 }
 
-.mainImgContainer {
+/* ---------- HERO ---------- */
+.hero {
+  position: relative;
   width: 100%;
+  max-height: 70vh;
+  overflow: hidden;
+  border-radius: var(--main-border-radius);
+  box-shadow: 0 4px 20px var(--shadow-color);
+
   img {
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 70vh;
+    object-fit: cover;
+    object-position: center;
   }
 }
 
-.mainInfoContainer {
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(49, 49, 49, 0) 30%,
+    rgba(49, 49, 49, 0.55) 70%,
+    rgba(49, 49, 49, 0.9) 100%
+  );
+}
+
+.heroContent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 50vw;
+  gap: 0.9rem;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+}
+
+.heroKicker {
+  display: inline-block;
+  padding: 0.35rem 1.1rem;
+  border: 1px solid var(--red-color);
+  border-radius: 2rem;
+  background-color: rgba(255, 90, 95, 0.18);
+  color: var(--light-color);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  margin: 0;
+  font-family: "Russo One", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3.4rem);
+  letter-spacing: 2px;
+  color: var(--light-color);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.65);
+}
+
+.heroTagline {
+  max-width: 42rem;
+  margin: 0;
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  line-height: 1.5;
+  color: var(--light-color);
+  opacity: 0.92;
+}
+
+/* ---------- LEAD ---------- */
+.lead {
+  width: 100%;
+  max-width: $content-max-width;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  font-size: 1.15rem;
+  line-height: 1.85;
+  text-align: justify;
+
+  &::first-letter {
+    float: left;
+    margin: 0.1rem 0.7rem 0 0;
+    font-family: "Russo One", sans-serif;
+    font-size: 3.4rem;
+    line-height: 1;
+    color: var(--red-color);
+  }
+}
+
+/* ---------- CONTENT CARDS ---------- */
+.section {
+  width: 100%;
+  max-width: $content-max-width;
+  margin: 0 auto;
+  padding: 1.75rem 2rem;
+  border-radius: var(--main-border-radius);
+  background-color: var(--card-bg-color);
+  box-shadow: 0 2px 14px var(--shadow-color);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 22px var(--shadow-color);
+  }
+}
+
+.sectionTitle {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+  line-height: 1.35;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 3rem;
+    height: 3px;
+    margin-top: 0.7rem;
+    border-radius: 2px;
+    background-color: var(--red-color);
+  }
 }
 
 .paragraph {
-  line-height: 1.6;
+  margin: 0 0 1rem;
+  line-height: 1.8;
   text-indent: 2rem;
   text-align: justify;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .firstParagraph {
@@ -40,47 +158,67 @@ $mobile-padding: 0 2rem;
   }
 }
 
-.footer {
+/* ---------- CLOSING CTA ---------- */
+.cta {
   display: flex;
   flex-direction: column;
-  margin-top: 2rem;
-  font-style: italic;
-  margin-top: 1rem;
-  font-weight: bold;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  max-width: $content-max-width;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  border: 1px solid var(--red-color);
+  border-radius: var(--main-border-radius);
+  background-color: var(--card-bg-color);
+  box-shadow: 0 2px 14px var(--shadow-color);
   text-align: center;
+
   p {
-    margin: 0.5rem 0;
-  }
-  .footerLast {
-    font-size: 1.5rem;
-    margin-top: 2rem;
-    color: var(--red-color);
+    margin: 0;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.05rem;
   }
 }
 
+.ctaTitle {
+  margin-top: 1rem !important;
+  font-family: "Russo One", sans-serif;
+  font-style: normal !important;
+  font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+  letter-spacing: 1px;
+  color: var(--red-color);
+}
+
 @media (max-width: 767px) {
-  .mainImgContainer {
+  .hero {
+    max-height: 55vh;
     img {
-      object-fit: contain;
+      max-height: 55vh;
     }
   }
 
-  .title {
-    margin: 1rem 0;
-    font-size: 1.3rem;
-    text-align: center;
+  .heroContent {
+    padding: 1.5rem 1rem;
+    gap: 0.6rem;
+  }
+
+  .lead {
+    padding: $mobile-padding;
+    font-size: 1.05rem;
+    text-align: left;
+  }
+
+  .section {
+    padding: 1.25rem 1.25rem;
   }
 
   .paragraph {
     text-indent: 1rem;
   }
 
-  .mainInfoContainer {
-    max-width: 100vw;
-    padding: $mobile-padding;
-  }
-
-  .footer {
-    padding: $mobile-padding;
+  .cta {
+    padding: 1.75rem 1.25rem;
   }
 }
