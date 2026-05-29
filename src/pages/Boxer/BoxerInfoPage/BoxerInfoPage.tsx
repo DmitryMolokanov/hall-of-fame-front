@@ -1,42 +1,83 @@
 import { BoxerTypes } from '@/types/boxerTypes';
-import { FC, useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import cls from './BoxerInfoPage.module.scss'
 import { Button } from '@/components/Buttons/Button';
 import arrowLeft from '@/assets/icons/common/arrow-left.svg'
 import { LineChart } from '@/components/Charts/LineChart';
 import { getChartData } from './utils/getChartData';
+import { boxersApi } from '@/api/boxersApi/boxersApi';
 
-interface BoxerInfoPageProps {
-    selectedBoxer: BoxerTypes
-    backToAllBoxers: () => void
-}
+const BoxerInfoPage = () => {
+    const { id } = useParams<{ id: string }>()
+    const navigate = useNavigate()
 
-const BoxerInfoPage: FC<BoxerInfoPageProps> = ({ selectedBoxer, backToAllBoxers }) => {
+    const [boxer, setBoxer] = useState<BoxerTypes | null>(null)
+    const [isLoading, setIsLoading] = useState(true)
+    const [notFound, setNotFound] = useState(false)
 
-    const getBio = () => {
-        const statKey = ['name', "born", "died", "induction"]
-        const bioData = Object.entries(selectedBoxer).filter(([key, value]) => {
-            if (value) {
-                return statKey.includes(key)
+    useEffect(() => {
+        if (!id) return
+        let cancelled = false
+
+        const fetchBoxer = async () => {
+            setIsLoading(true)
+            setNotFound(false)
+            try {
+                const response = await boxersApi.getBoxer(id)
+                if (!cancelled) setBoxer(response.data)
+            } catch (err: unknown) {
+                if (!cancelled) {
+                    const status = (err as { response?: { status?: number } })?.response?.status
+                    if (status === 404) setNotFound(true)
+                }
+            } finally {
+                if (!cancelled) setIsLoading(false)
             }
+        }
+
+        fetchBoxer()
+        return () => { cancelled = true }
+    }, [id])
+
+    useEffect(() => window.scrollTo(0, 0), [id])
+
+    const backToAllBoxers = () => navigate('/boxers')
+
+    const getBio = (selectedBoxer: BoxerTypes) => {
+        const statKey = ['name', 'born', 'died', 'induction']
+        return Object.entries(selectedBoxer).filter(([key, value]) => {
+            if (value) return statKey.includes(key)
         })
-        return bioData
     }
 
-    const getTransformedBiography = (bio: string) => {
-        const paragraphsArray = bio.split('<br>')
-        return paragraphsArray
+    const getTransformedBiography = (bio: string) => bio.split('<br>')
+
+    if (isLoading) {
+        return (
+            <div className={cls.pageWrapper}>
+                <div className={cls.backBtnContainer}>
+                    <Button label='Back' icon={arrowLeft} imgAnimation='leftSideMove' onClick={backToAllBoxers} />
+                </div>
+                <div>Loading ...</div>
+            </div>
+        )
     }
 
+    if (notFound || !boxer) {
+        return (
+            <div className={cls.pageWrapper}>
+                <div className={cls.backBtnContainer}>
+                    <Button label='Back' icon={arrowLeft} imgAnimation='leftSideMove' onClick={backToAllBoxers} />
+                </div>
+                <div>Boxer not found</div>
+            </div>
+        )
+    }
 
-    const bioData = getBio()
-
-    const chartData = getChartData(selectedBoxer) // делает выборку параметров для отображения графика (в том числе устанавливает цвет)
-
-    const transformedBiography = getTransformedBiography(selectedBoxer.biography) // получаем массив абзацев биографии
-
-
-    useEffect(() => window.scrollTo(0, 0), [])
+    const bioData = getBio(boxer)
+    const chartData = getChartData(boxer)
+    const transformedBiography = getTransformedBiography(boxer.biography)
 
     return (
         <div className={cls.pageWrapper}>
@@ -48,14 +89,14 @@ const BoxerInfoPage: FC<BoxerInfoPageProps> = ({ selectedBoxer, backToAllBoxers 
             <div className={cls.boxerCardWrapper}>
                 <div className={cls.boxerCard}>
                     <div className={cls.boxerCardTitle}>
-                        <h2 className={cls.title}> {selectedBoxer.name}</h2>
+                        <h2 className={cls.title}> {boxer.name}</h2>
                     </div>
                     <div className={cls.boxerInfoContainer}>
 
                         <div className={cls.boxerInfoWrapper}>
                             <div className={cls.boxerInfoImg}>
-                                {selectedBoxer.img &&
-                                    <img src={selectedBoxer.img} alt="boxer-img" />
+                                {boxer.img &&
+                                    <img src={boxer.img} alt="boxer-img" />
                                 }
                             </div>
 
@@ -77,7 +118,7 @@ const BoxerInfoPage: FC<BoxerInfoPageProps> = ({ selectedBoxer, backToAllBoxers 
                                 <div className={cls.chartContainer}>
                                     <LineChart
                                         data={chartData}
-                                        bouts={selectedBoxer.bouts}
+                                        bouts={boxer.bouts}
                                     />
                                 </div>
                             </div>
@@ -85,9 +126,10 @@ const BoxerInfoPage: FC<BoxerInfoPageProps> = ({ selectedBoxer, backToAllBoxers 
                         </div>
 
                         <div className={cls.boxerInfoBio}>
-                            <p>{transformedBiography.map((paragraph) => {
-                                if (paragraph) return <p>{paragraph}</p>
-                            })}</p>
+                            {transformedBiography.map((paragraph, idx) => {
+                                if (paragraph) return <p key={idx}>{paragraph}</p>
+                                return null
+                            })}
                         </div>
 
                     </div>

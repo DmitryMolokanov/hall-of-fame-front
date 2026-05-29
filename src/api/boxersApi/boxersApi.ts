@@ -15,6 +15,8 @@ export const boxersApi = {
 
     getAllBoxers: () => axiosInstance.get('/boxers'),
 
+    getBoxer: (id: string) => axiosInstance.get(`/boxers/${id}`),
+
     getSearchBoxers: (searchValue: string) => axiosInstance.post('/boxers/search', { search: searchValue }),
 
     deleteBoxer: (id: string) => axiosInstance.delete('/boxers', { data: { id } })

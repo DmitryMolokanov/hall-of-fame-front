@@ -1,22 +1,22 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import cls from './Boxers.module.scss'
 import { boxersApi } from '@/api/boxersApi/boxersApi';
 import { BoxerTypes, SortBoxerType } from '@/types/boxerTypes';
-import BoxerInfoPage from '../BoxerInfoPage/BoxerInfoPage';
 import Input from '@/components/Input/Input';
 import useDebounce from '@/hooks/useDebounce';
 import BoxersTable from './components/BoxersTable/BoxersTable';
-import classNames from 'classnames';
 
+const SCROLL_STORAGE_KEY = 'boxersPageScrollY'
 
 const BoxersPage = () => {
 
+  const navigate = useNavigate()
+
   const [boxers, setBoxers] = useState<BoxerTypes[]>([])
-  const [selectedBoxer, setSelectedBoxer] = useState<BoxerTypes | undefined>(undefined)
   const [search, setSearch] = useState<string | undefined>(undefined)
   const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC'>('ASC')
   const [sortBy, setSortBy] = useState<SortBoxerType>('name')
-  const [scrollY, setScrollY] = useState<number>(0)
   const [offset, setOffset] = useState(0)
   const [hasMoreLoad, setHasMoreLoad] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
@@ -33,13 +33,11 @@ const BoxersPage = () => {
       const response = await boxersApi.getBoxers(limit, offset, sortOrder, sortBy)
       if (response.data.length) {
         if (offset > 0) {
-          // для бесконечной загрузки
-          setBoxers([...boxers, ...response.data])
-          setOffset(boxers.length + limit)
+          setBoxers(prev => [...prev, ...response.data])
+          setOffset(prev => prev + limit)
         } else {
-          // для первоначальной загрузки
           setBoxers(response.data)
-          setOffset(0 + limit)
+          setOffset(limit)
         }
       } else {
         setHasMoreLoad(false)
@@ -49,7 +47,7 @@ const BoxersPage = () => {
     } finally {
       setIsLoading(false)
     }
-  }, [boxers])
+  }, [])
 
   const searchBoxers = async (search: string) => {
     try {
@@ -65,43 +63,26 @@ const BoxersPage = () => {
   //---------------------------------------------//
 
   const selectBoxer = useCallback((item: BoxerTypes) => {
-    setSelectedBoxer(item)
-    setScrollY(window.scrollY)
-  }, [])
-
-  const backToAllBoxers = () => {
-    setSelectedBoxer(undefined)
-    // если не поиск, возвращаемся к ленивой загрузке
-    if (search !== undefined && !search.length) {
-      setHasMoreLoad(true)
-    }
-  }
+    sessionStorage.setItem(SCROLL_STORAGE_KEY, String(window.scrollY))
+    navigate(`/boxers/${item.id}`)
+  }, [navigate])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchData = e.target.value
-    setSearch(searchData)
+    setSearch(e.target.value)
   }
 
   const handleSortTable = (bdName: SortBoxerType | null) => {
     setSearch('')
     if (bdName) {
       setSortBy(bdName)
-      if (sortOrder === 'ASC') {
-        setSortOrder('DESC')
-      } else {
-        setSortOrder('ASC')
-      }
+      setSortOrder(prev => prev === 'ASC' ? 'DESC' : 'ASC')
     }
   }
 
-  useEffect(() => console.log(boxers, offset), [boxers, offset])
-
   useEffect(() => {
-    // подгрузка
-    if (hasMoreLoad && !selectedBoxer) {
+    if (hasMoreLoad) {
       const observer = new IntersectionObserver(([entry]) => {
         if (entry.isIntersecting) {
-          console.log('intersection')
           getBoxers(limit, offset, sortOrder, sortBy)
         }
       }, {
@@ -110,11 +91,10 @@ const BoxersPage = () => {
       if (ref.current) observer.observe(ref.current)
       return () => observer.disconnect()
     }
-  }, [ref, offset, hasMoreLoad, selectedBoxer, sortOrder, sortBy, getBoxers])
+  }, [offset, hasMoreLoad, sortOrder, sortBy, getBoxers])
 
 
   useEffect(() => {
-    // поиск
     if (debounceSearchValue !== undefined) {
       if (debounceSearchValue.length) {
         searchBoxers(debounceSearchValue)
@@ -129,45 +109,37 @@ const BoxersPage = () => {
 
 
   useLayoutEffect(() => {
-    // для возвразения скрола на то место с которого ушел
-    if (!selectedBoxer) {
-      window.scrollTo(0, scrollY)
+    const saved = sessionStorage.getItem(SCROLL_STORAGE_KEY)
+    if (saved !== null && boxers.length > 0) {
+      window.scrollTo(0, Number(saved))
+      sessionStorage.removeItem(SCROLL_STORAGE_KEY)
     }
-  }, [selectedBoxer, scrollY])
+  }, [boxers.length])
 
 
   return (
-    <>
-      {selectedBoxer &&
-        <BoxerInfoPage
-          selectedBoxer={selectedBoxer}
-          backToAllBoxers={backToAllBoxers}
-        />
-      }
-
-      <div className={cls.pageContainer}>
-        <div className={classNames({ [cls.allBoxersHidden]: selectedBoxer })}>
-          <div className={cls.settingsContainer}>
-            <Input
-              type='text'
-              placeholder='Search'
-              value={search}
-              onChange={handleSearch}
-            />
-          </div>
-          <div className={cls.allBoxersCardContainer}>
-            <BoxersTable
-              boxers={boxers}
-              selectBoxer={selectBoxer}
-              handleSortTable={handleSortTable}
-              sortBy={sortBy}
-            />
-            <div ref={ref} className={cls.observerTrigger}></div>
-            {isLoading && <div>Loading ...</div>}
-          </div>
+    <div className={cls.pageContainer}>
+      <div>
+        <div className={cls.settingsContainer}>
+          <Input
+            type='text'
+            placeholder='Search'
+            value={search}
+            onChange={handleSearch}
+          />
+        </div>
+        <div className={cls.allBoxersCardContainer}>
+          <BoxersTable
+            boxers={boxers}
+            selectBoxer={selectBoxer}
+            handleSortTable={handleSortTable}
+            sortBy={sortBy}
+          />
+          <div ref={ref} className={cls.observerTrigger}></div>
+          {isLoading && <div>Loading ...</div>}
         </div>
       </div>
-    </>
+    </div>
   )
 };
 

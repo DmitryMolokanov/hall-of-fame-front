@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import AppLayout from '@/layout/AppLayout/AppLayout';
 import MainPage from '@pages/MainPage/MainPage';
 import BoxersPage from '@/pages/Boxer/BoxersPage/BoxersPage';
+import BoxerInfoPage from '@/pages/Boxer/BoxerInfoPage/BoxerInfoPage';
 
 
 const routeList = [
@@ -12,6 +13,10 @@ const routeList = [
     {
         path: '/boxers',
         element: <BoxersPage />
+    },
+    {
+        path: '/boxers/:id',
+        element: <BoxerInfoPage />
     }
 ]
 
