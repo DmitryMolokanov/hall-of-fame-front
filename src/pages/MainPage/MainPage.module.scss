@@ -1,14 +1,18 @@
 @use "@styles//variable";
 
 $content-max-width: 60rem;
+$text-max-width: 44rem;
 $mobile-padding: 0 1.5rem;
+$hairline: color-mix(in srgb, var(--text-color) 14%, transparent);
+$muted-text: color-mix(in srgb, var(--text-color) 80%, transparent);
 
 .mainPageWrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 2.5rem;
-  padding-bottom: 3rem;
+  gap: 3rem;
+  padding-bottom: 4rem;
+  counter-reset: section;
 }
 
 /* ---------- HERO ---------- */
@@ -88,61 +92,80 @@ $mobile-padding: 0 1.5rem;
 /* ---------- LEAD ---------- */
 .lead {
   width: 100%;
-  max-width: $content-max-width;
-  margin: 0 auto;
+  max-width: $text-max-width;
+  margin: 0.5rem auto 0;
   padding: 0 1.5rem;
-  font-size: 1.15rem;
-  line-height: 1.85;
-  text-align: justify;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  line-height: 1.75;
+  font-weight: 300;
+  text-align: left;
 
   &::first-letter {
     float: left;
-    margin: 0.1rem 0.7rem 0 0;
+    margin: 0.4rem 0.9rem 0 0;
     font-family: "Russo One", sans-serif;
-    font-size: 3.4rem;
-    line-height: 1;
+    font-size: 4.4rem;
+    line-height: 0.8;
     color: var(--red-color);
   }
 }
 
-/* ---------- CONTENT CARDS ---------- */
+/* ---------- CONTENT SECTIONS (editorial, no cards) ---------- */
 .section {
+  position: relative;
   width: 100%;
   max-width: $content-max-width;
   margin: 0 auto;
-  padding: 1.75rem 2rem;
-  border-radius: var(--main-border-radius);
-  background-color: var(--card-bg-color);
-  box-shadow: 0 2px 14px var(--shadow-color);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  padding: 3rem 1.5rem 0;
+  border-top: 1px solid $hairline;
+  counter-increment: section;
 
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 22px var(--shadow-color);
+  /* large ghost index number as a design accent */
+  &::before {
+    content: counter(section, decimal-leading-zero);
+    position: absolute;
+    top: 1.6rem;
+    right: 1.5rem;
+    font-family: "Russo One", sans-serif;
+    font-size: clamp(4rem, 11vw, 7.5rem);
+    line-height: 1;
+    color: var(--red-color);
+    opacity: 0.1;
+    pointer-events: none;
+    user-select: none;
   }
 }
 
 .sectionTitle {
-  margin: 0 0 1.25rem;
-  font-size: clamp(1.15rem, 2.2vw, 1.6rem);
-  line-height: 1.35;
+  position: relative;
+  z-index: 1;
+  max-width: 34rem;
+  margin: 0 0 1.5rem;
+  font-family: "Russo One", sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.1rem);
+  line-height: 1.25;
+  letter-spacing: 1px;
+  color: var(--text-color);
 
   &::after {
     content: "";
     display: block;
     width: 3rem;
     height: 3px;
-    margin-top: 0.7rem;
+    margin-top: 0.9rem;
     border-radius: 2px;
     background-color: var(--red-color);
   }
 }
 
 .paragraph {
-  margin: 0 0 1rem;
-  line-height: 1.8;
-  text-indent: 2rem;
-  text-align: justify;
+  position: relative;
+  z-index: 1;
+  max-width: $text-max-width + 6rem;
+  margin: 0 0 1.15rem;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: $muted-text;
 
   &:last-child {
     margin-bottom: 0;
@@ -151,46 +174,45 @@ $mobile-padding: 0 1.5rem;
 
 .firstParagraph {
   &::first-letter {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 900;
     color: var(--red-color);
     letter-spacing: 2px;
   }
 }
 
-/* ---------- CLOSING CTA ---------- */
+/* ---------- CLOSING LINE ---------- */
 .cta {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.4rem;
   width: 100%;
   max-width: $content-max-width;
-  margin: 0 auto;
-  padding: 2.5rem 2rem;
-  border: 1px solid var(--red-color);
-  border-radius: var(--main-border-radius);
-  background-color: var(--card-bg-color);
-  box-shadow: 0 2px 14px var(--shadow-color);
+  margin: 1rem auto 0;
+  padding: 3.25rem 1.5rem 0;
+  border-top: 1px solid $hairline;
   text-align: center;
 
   p {
     margin: 0;
     font-style: italic;
-    font-weight: 600;
-    font-size: 1.05rem;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: $muted-text;
   }
 }
 
 .ctaTitle {
-  margin-top: 1rem !important;
+  margin-top: 1.4rem !important;
   font-family: "Russo One", sans-serif;
   font-style: normal !important;
-  font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+  font-size: clamp(1.4rem, 3vw, 2rem);
   letter-spacing: 1px;
   color: var(--red-color);
 }
 
+/* ---------- Responsive ---------- */
 @media (max-width: 767px) {
   .hero {
     max-height: 55vh;
@@ -206,19 +228,24 @@ $mobile-padding: 0 1.5rem;
 
   .lead {
     padding: $mobile-padding;
-    font-size: 1.05rem;
-    text-align: left;
+    font-size: 1.08rem;
+
+    &::first-letter {
+      font-size: 3.6rem;
+    }
   }
 
   .section {
-    padding: 1.25rem 1.25rem;
+    padding: 2.5rem 1.5rem 0;
+
+    &::before {
+      top: 1.4rem;
+      right: 1rem;
+      font-size: 3.5rem;
+    }
   }
 
-  .paragraph {
-    text-indent: 1rem;
-  }
-
-  .cta {
-    padding: 1.75rem 1.25rem;
+  .sectionTitle {
+    max-width: 100%;
   }
 }

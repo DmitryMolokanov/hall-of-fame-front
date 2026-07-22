@@ -16,41 +16,34 @@ const MainPage = () => {
                         International Boxing Hall of Fame
                     </h1>
                     <p className={cls.heroTagline}>
-                        Honoring the icons, preserving the legacy, and celebrating the enduring drama of the squared circle.
+                        Where boxing honors its greatest names and keeps their stories alive.
                     </p>
                 </div>
             </section>
 
             <AnimationWrapper>
                 <p className={cls.lead}>
-                    Step into a hallowed space where the echoes of thunderous punches, the roar of the crowd, and the unwavering spirit of champions converge.
-                    The International Boxing Hall of Fame (IBHOF) stands as the ultimate testament to the enduring power and captivating drama of boxing.
-                    This is  more than just a museum; this is a living archive,
-                    a global center dedicated to honoring the iconic figures who have defined this ancient and noble sport,
-                    and to meticulously preserving its rich, often untold, history for generations to come.
-                    Whether you are a lifelong aficionado who has lived through every knockout and every controversial decision,
-                    or a newcomer discovering the artistry and courage within the squared circle, our virtual gates are wide open,
-                    inviting you to explore the compelling narratives that have shaped boxing into the universally celebrated phenomenon it is today.
+                    Boxing is a sport of moments — a single punch, a comeback no one saw coming,
+                    a champion who simply refused to fall. The International Boxing Hall of Fame
+                    exists so those moments are never lost. It is more than a museum; it is a living
+                    archive of the sport, a place that honors the fighters who defined boxing along
+                    with the many people behind them who kept it alive. Whether you have followed
+                    every round for decades or are just discovering the ring, you are welcome here.
                 </p>
             </AnimationWrapper>
 
             <AnimationWrapper>
                 <article className={cls.section}>
                     <h2 className={classNames(cls.title, cls.sectionTitle)}>
-                        The Genesis of a Dream: Laying the Foundation for Boxing’s Pantheon
+                        Why the Hall Exists
                     </h2>
                     <p className={cls.paragraph}>
-                        The desire to formally recognize and immortalize boxing’s greatest talents is not a new one.
-                        For decades, as the sport produced an astonishing lineage of heroes and spectacles, a void was felt – the absence of a centralized,
-                        universally respected institution dedicated solely to their commemoration.
-                        This growing sentiment, born from a profound love for boxing and a deep-seated commitment to ensuring its legacy would transcend time,
-                        began to coalesce into a tangible vision: a Hall of Fame worthy of the sport’s giants.
-                        This was not a limited aspiration, confined solely to the celebrated pugilists.
-                        The architects of this dream understood that boxing’s soul resided not only in the raw power of its fighters
-                        but also in the strategic brilliance of its trainers, the audacious vision of its promoters,
-                        the insightful chronicling of its journalists, and the unwavering dedication of countless individuals who,
-                        behind the scenes, kept the engine of the sport running.The concept was to create a comprehensive tapestry,
-                        woven with the threads of every significant contribution to boxing’s storied existence.
+                        For most of boxing’s history, there was no single place to honor its greatest
+                        names. The sport produced legend after legend, yet their stories stayed
+                        scattered — kept alive in old newspapers, fading photographs, and the memories
+                        of the people who were there. The Hall of Fame was created to change that: to
+                        give boxing one home where its champions, trainers, promoters, and writers are
+                        remembered together. Because a great fight is never the work of one person alone.
                     </p>
                 </article>
             </AnimationWrapper>
@@ -58,32 +51,27 @@ const MainPage = () => {
             <AnimationWrapper>
                 <article className={cls.section}>
                     <h2 className={classNames(cls.title, cls.sectionTitle)}>
-                        From Vision to Cornerstone: The Transformative Development of the IBHOF
+                        A Home in Canastota
                     </h2>
                     <p className={classNames(cls.paragraph, cls.firstParagraph)}>
-                        The path from conceptualization to the establishment of a physical institution was a arduous but inspiring journey,
-                        fueled by the unwavering passion and collective effort of boxing enthusiasts, historians, and former fighters.
-                        While various initiatives were explored throughout the mid-to-late 20th century,
-                        it was in the late 1980s that the momentum truly solidified, setting the stage for a historic undertaking.
+                        Turning that idea into a real place took years of work by fans, historians, and
+                        former fighters who believed the sport deserved a lasting tribute. Different
+                        efforts came and went over the years, but by the late 1980s the momentum was
+                        finally there.
                     </p>
 
                     <p className={cls.paragraph}>
-                        A pivotal moment arrived in 1988 with the momentous decision to establish the permanent
-                        home of the International Boxing Hall of Fame in Canastota, New York. This choice held profound significance.
-                        Canastota, the proud hometown of the legendary Hall of Famer Carmen Basilio, a man embodying the grit, determination,
-                        and heart of a true champion, became intrinsically linked to the modern institution.
-                        This geographic anchoring connected the future of boxing’s legacy to its powerful, working-class roots.
+                        The Hall found its home in Canastota, New York — the small town that raised
+                        world champion Carmen Basilio. Known for his toughness and heart, Basilio
+                        embodied boxing’s working-class roots, and tying the institution to his
+                        hometown gave it a fitting sense of place.
                     </p>
 
                     <p className={cls.paragraph}>
-                        Under the astute leadership of dedicated visionaries and with the enthusiastic
-                        support of the global boxing community – a community united by their
-                        shared passion for the sport – the ambitious project of constructing the IBHOF facility commenced.
-                        Years of meticulous planning, extensive fundraising campaigns that spanned continents,
-                        and countless hours of tireless dedication from volunteers and staff culminated in a momentous occasion:
-                        the grand opening of the Hall of Fame on June 10, 1990.
-                        This landmark event wasn’t just the inauguration of a building; it was the formal christening of a sanctuary,
-                        a place forever consecrated to the recognition, preservation, and celebration of boxing’s most extraordinary individuals and moments.
+                        After years of planning and fundraising, the International Boxing Hall of Fame
+                        opened its doors on June 10, 1990. It was more than the opening of a building —
+                        it was the start of a permanent place to recognize the people and moments that
+                        shaped the sport.
                     </p>
                 </article>
             </AnimationWrapper>
@@ -91,47 +79,38 @@ const MainPage = () => {
             <AnimationWrapper>
                 <article className={cls.section}>
                     <h2 className={classNames(cls.title, cls.sectionTitle)}>
-                        An Evolving Pantheon: The Continuous Growth and Profound Impact of the IBHOF
+                        More Than a Museum
                     </h2>
                     <p className={classNames(cls.paragraph, cls.firstParagraph)}>
-                        Since its auspicious beginnings, the International Boxing Hall of Fame has transcended its role as a static museum,
-                        evolving into a dynamic and vibrant testament to the sport’s continuous evolution and its ever-expanding pantheon of greatness.
-                        Each year, a distinguished class of inductees is meticulously selected through a rigorous and highly respected process.
-                        This esteemed selection is a joint endeavor, drawing upon the expertise and historical knowledge of the Boxing Writers Association of America (BWAA)
-                        and the International Boxing Research Organization (IBRO),
-                        ensuring that only those who have demonstrably left an indelible mark on the sport are honored.
+                        Since then, the Hall has grown into far more than a collection of exhibits.
+                        Every year a new class of inductees is chosen through a respected voting process
+                        led by the Boxing Writers Association of America (BWAA) and the International
+                        Boxing Research Organization (IBRO) — an honor reserved for those who truly left
+                        their mark on the sport.
                     </p>
 
                     <p className={cls.paragraph}>
-                        The IBHOF’s physical space has blossomed into an expansive and meticulously curated collection.
-                        It houses an unparalleled array of artifacts, historical memorabilia, and immersive exhibits that artfully chronicle boxing’s
-                        storied, complex, and often dramatic past. From the iconic gloves worn by Muhammad Ali in his most celebrated bouts,
-                        to the championship robes of Rocky Marciano, from the legendary tales of Jack Dempsey’s ferocious
-                        power to the dazzling performances and global impact of contemporary champions, the Hall of Fame offers an
-                        experience that is both deeply educational and profoundly inspiring.
-                        It provides a journey through time, allowing visitors to connect with the very essence of boxing history.
+                        Inside, the galleries trace boxing’s most dramatic chapters. From Muhammad Ali’s
+                        gloves to Rocky Marciano’s championship robe, from the raw power of Jack Dempsey
+                        to the champions of today, the collection lets visitors stand face to face with
+                        the history of the sport.
                     </p>
 
                     <p className={cls.paragraph}>
-                        Beyond its tangible presence and its role as a historical repository,
-                        the IBHOF serves a vital and multifaceted purpose within the boxing world.
-                        It actively champions the promotion of boxing history, offering educational resources
-                        and supporting boxing-related charitable endeavors that give back to communities.
-                        Furthermore, it acts as a crucial nexus for fostering a deeper, more informed global appreciation for the
-                        sport’s artistry, courage, and cultural significance. The IBHOF is more than a destination;
-                        it is a pilgrimage site for boxing aficionados, an invaluable historical archive for researchers and scholars,
-                        and an awe-inspiring destination that captivates and educates all who are drawn to the raw emotion,
-                        strategic brilliance, and enduring dignity of the prize ring.
+                        But the Hall’s mission reaches beyond its walls. It promotes the history of
+                        boxing, supports charitable causes, and helps a wider audience appreciate the
+                        skill, courage, and drama of the ring. For fans it is a pilgrimage, for
+                        researchers an archive, and for newcomers an unforgettable first look at the sport.
                     </p>
                 </article>
             </AnimationWrapper>
 
             <AnimationWrapper>
                 <footer className={cls.cta}>
-                    <p>Immerse yourself in the compelling stories</p>
-                    <p>Relive the unforgettable moments</p>
-                    <p>Celebrate the immortal legends</p>
-                    <p>Your journey into the heart of boxing history begins here</p>
+                    <p>Discover the stories that shaped the sport.</p>
+                    <p>Relive the moments that made history.</p>
+                    <p>Celebrate the legends who never backed down.</p>
+                    <p>Your journey into boxing history starts here.</p>
                     <p className={cls.ctaTitle}>Welcome to the International Boxing Hall of Fame!</p>
                 </footer>
             </AnimationWrapper>
