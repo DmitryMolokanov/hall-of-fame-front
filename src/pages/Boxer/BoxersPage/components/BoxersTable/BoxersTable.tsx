@@ -9,9 +9,20 @@ interface BoxersTableProps {
     selectBoxer: (boxer: BoxerTypes) => void
     handleSortTable: (bdName: SortBoxerType | null) => void
     sortBy: SortBoxerType
+    sortOrder: 'ASC' | 'DESC'
 }
 
-const BoxersTable: FC<BoxersTableProps> = ({ boxers, selectBoxer, handleSortTable, sortBy }) => {
+const SortArrow: FC<{ order: 'ASC' | 'DESC' }> = ({ order }) => (
+    <svg
+        className={classNames(cls.sortArrow, { [cls.sortArrowDesc]: order === 'DESC' })}
+        viewBox="0 0 16 16"
+        aria-hidden="true"
+    >
+        <path d="M8 3 L13 10 H3 Z" fill="currentColor" />
+    </svg>
+)
+
+const BoxersTable: FC<BoxersTableProps> = ({ boxers, selectBoxer, handleSortTable, sortBy, sortOrder }) => {
 
     const tableThList = [
         {
@@ -49,24 +60,36 @@ const BoxersTable: FC<BoxersTableProps> = ({ boxers, selectBoxer, handleSortTabl
 
     return (
         <table className={cls.boxersTable}>
+            <colgroup>
+                <col className={cls.colAvatar} />
+                <col className={cls.colName} />
+                <col className={cls.colDate} />
+                <col className={cls.colDateWide} />
+                <col className={cls.colNumber} span={3} />
+                <col className={cls.colActions} />
+            </colgroup>
             <thead >
                 <tr>
                     <th></th>
-                    {tableThList.map((th) =>
-                        <th
-                            key={th.bdName}
+                    {tableThList.map((th) => {
+                        const active = th.bdName === sortBy
+                        return <th
+                            key={th.tableName}
                             className={classNames(
                                 th.className,
                                 {
                                     [cls.thHover]: th.bdName,
-                                    [cls.thHighlighted]: th.bdName === sortBy
+                                    [cls.thHighlighted]: active
                                 },
                                 [cls.tableHeadTh])}
                             onClick={() => handleSortTable(th.bdName as SortBoxerType)}
+                            aria-sort={active ? (sortOrder === 'ASC' ? 'ascending' : 'descending') : undefined}
                         >
                             {th.tableName}
+                            {active && <SortArrow order={sortOrder} />}
                         </th>
-                    )}
+                    })}
+                    <th className={cls.tableRowVisible}></th>
                 </tr>
             </thead>
             <tbody>

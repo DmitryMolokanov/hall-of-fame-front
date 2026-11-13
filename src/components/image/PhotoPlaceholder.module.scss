@@ -1,0 +1,51 @@
+// one step off the card color in either theme: light grey on light, lighter grey on dark
+.placeholder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: color-mix(in srgb, var(--text-color) 8%, var(--card-bg-color));
+  user-select: none;
+}
+
+.initials {
+  font-family: "Russo One", sans-serif;
+  color: var(--red-color);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.note {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6%;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-align: center;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--text-color) 55%, transparent);
+}
+
+// profile photo slot (3:4)
+.card {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--main-border-radius);
+
+  .initials {
+    font-size: clamp(3.5rem, 7vw, 6rem);
+  }
+}
+
+// list avatar (circle, same size as AvatarImg)
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  .initials {
+    font-size: 1.05rem;
+  }
+}

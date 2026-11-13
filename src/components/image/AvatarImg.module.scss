@@ -6,12 +6,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center top; // full-length photos: keep the face in the circle
     border-radius: 50%;
   }
 }
 
-.avatarImgContainerEmpty {
-  @extend .avatarImgContainer;
-  background-color: lightgray;
-  border-radius: 50%;
-}

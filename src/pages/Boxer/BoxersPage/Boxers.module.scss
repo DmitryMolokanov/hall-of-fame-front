@@ -11,7 +11,9 @@
 }
 
 .allBoxersCardContainer {
-  min-width: 70vw;
+  // fixed width: the table must not grow or shrink with the rows it currently shows
+  width: 70vw;
+  box-sizing: border-box;
   min-height: 70vh;
   border-radius: var(--main-border-radius);
   padding: 1rem;
@@ -26,27 +28,69 @@
 
 .boxersTable {
   margin-top: 10px;
-  min-width: 100%;
+  width: 100%;
+  // fixed layout: column widths don't depend on the rows, so re-sorting doesn't shift the table
+  table-layout: fixed;
+}
+
+.colAvatar {
+  width: 82px;
+}
+
+.colName {
+  width: 20%;
+}
+
+.colDate {
+  width: 15%;
+}
+
+.colDateWide {
+  width: 21%;
+}
+
+.colNumber {
+  width: 9%;
+}
+
+.colActions {
+  width: 76px;
 }
 
 .tableHeadTh {
   text-align: start;
-  padding: 0.7rem 1rem;
+  padding: 0.7rem 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .thHighlighted {
   background-color: var(--red-color);
-  color: var(--text-color);
+  color: var(--light-color); // light text on the red pill in both themes
 }
 
 .thHover {
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: 1rem;
   &:hover {
     background-color: var(--red-color);
-    color: var(--text-color);
+    color: var(--light-color);
   }
+}
+
+.sortArrow {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-left: 0.35rem;
+  vertical-align: -0.1em;
+  transition: transform 0.25s ease;
+}
+
+.sortArrowDesc {
+  transform: rotate(180deg);
 }
 
 .tableRow {
@@ -58,12 +102,20 @@
     padding: 1rem;
   }
 
-  &:hover {
-    background-color: var(--red-color);
-    color: var(--light-color);
+  td:last-child {
+    padding: 1rem 0.5rem; // two icon buttons fit the narrow actions column
+  }
 
-    .tableRowBtnIcon {
-      filter: brightness(100);
+  // soft tint + accent bar: solid red is reserved for the active sort column in the header
+  &:hover {
+    background-color: color-mix(in srgb, var(--red-color) 10%, transparent);
+
+    td:first-child {
+      box-shadow: inset 4px 0 0 var(--red-color);
+    }
+
+    td:nth-child(2) {
+      color: var(--red-color);
     }
   }
 }
@@ -80,10 +132,7 @@
 
     &:hover {
       border-radius: 5px;
-      background-color: var(--light-color);
-      .tableRowBtnIcon {
-        filter: none;
-      }
+      background-color: color-mix(in srgb, var(--red-color) 18%, transparent);
     }
   }
 }
@@ -92,6 +141,7 @@
   .allBoxersCardContainer {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
+    width: 100%;
   }
 
   .settingsContainer {
@@ -101,4 +151,56 @@
   .tableRowVisible {
     display: none;
   }
+
+  // most columns are hidden here, so let the remaining ones size themselves
+  .boxersTable {
+    table-layout: auto;
+
+    // desktop column widths would keep space for the hidden columns
+    colgroup {
+      display: none;
+    }
+  }
+}
+
+/* ---------- category header (/boxers/:category) ---------- */
+.categoryHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  padding: 0.5rem 0 0;
+}
+
+.categoryBack {
+  display: inline-flex;
+  align-items: center;
+  flex-basis: 100%;
+  margin-left: -10px;
+  font-weight: 600;
+  color: var(--red-color);
+
+  img {
+    width: 28px;
+    height: 28px;
+    // arrow icon is light; tint it to the accent red
+    filter: brightness(0) saturate(100%) invert(52%) sepia(61%) saturate(3088%) hue-rotate(327deg) brightness(101%) contrast(101%);
+    transition: transform 0.3s;
+  }
+
+  &:hover img {
+    transform: translateX(-6px);
+  }
+}
+
+.categoryTitle {
+  margin: 0;
+  font-family: "Russo One", sans-serif;
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  letter-spacing: 1px;
+}
+
+.categoryPeriod {
+  font-size: 0.95rem;
+  color: color-mix(in srgb, var(--text-color) 75%, transparent);
 }

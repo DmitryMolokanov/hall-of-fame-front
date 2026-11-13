@@ -1,12 +1,13 @@
 .input {
   width: 30%;
-  height: 2rem;
+  height: 2.6rem;
   background-color: inherit;
   color: var(--text-color);
   border: 1px solid var(--red-color);
-  border-radius: 1rem;
+  border-radius: 1.3rem;
   transition: 0.3s;
-  padding: 0 1rem;
+  padding: 0 1.2rem;
+  font-size: 1rem;
   &:focus {
     outline: 1px solid var(--red-color);
   }

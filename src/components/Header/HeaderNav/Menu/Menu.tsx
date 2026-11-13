@@ -3,6 +3,7 @@ import cls from '../../Header.module.scss'
 import { FC } from 'react';
 import mainImg from '@assets/icons/menu/home.svg'
 import boxersImg from '@assets/icons/menu/boxer-сards.svg'
+import beyondTheRingImg from '@assets/icons/menu/beyond-the-ring.svg'
 
 interface MenuProps {
     className: string
@@ -21,6 +22,11 @@ const Menu: FC<MenuProps> = ({ className }) => {
             name: 'BOXERS',
             img: boxersImg,
         },
+        {
+            link: '/beyond-the-ring',
+            name: 'BEYOND THE RING',
+            img: beyondTheRingImg,
+        },
 
     ]
 
@@ -29,7 +35,7 @@ const Menu: FC<MenuProps> = ({ className }) => {
             <ul className={className}>
                 {
                     navList.map((item) => {
-                        return <li>
+                        return <li key={item.link}>
                             <Link
                                 to={item.link}
                                 className={cls.menuLink}

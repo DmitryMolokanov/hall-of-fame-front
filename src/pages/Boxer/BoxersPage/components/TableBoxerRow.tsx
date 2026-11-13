@@ -18,9 +18,11 @@ const TableBoxerRow: FC<TableBoxerRowProps> = ({ boxer, selectBoxer, }) => {
 
     const [deleteModalVisible, setDeleteModalVisible] = useState(false)
 
-    const wonPercentCount = (won: string, bouts: string,) => {
-        const wonPercent = +won / +bouts * 100
-        return Math.round(wonPercent)
+    const NO_DATA = '—'
+
+    const wonPercentCount = (won: string | null, bouts: string | null) => {
+        if (won == null || bouts == null || !+bouts) return NO_DATA
+        return Math.round(+won / +bouts * 100)
     }
 
     const deleteBoxer = async (boxer: BoxerTypes) => {
@@ -53,7 +55,7 @@ const TableBoxerRow: FC<TableBoxerRowProps> = ({ boxer, selectBoxer, }) => {
                 onClick={() => selectBoxer(boxer)}
             >
                 <td>
-                    <AvatarImg img={boxer.avatarImg} />
+                    <AvatarImg img={boxer.avatarImg} name={boxer.name} />
                 </td>
                 <td className={cls.boldText}>
                     {boxer.name}
@@ -65,10 +67,10 @@ const TableBoxerRow: FC<TableBoxerRowProps> = ({ boxer, selectBoxer, }) => {
                     {boxer.induction}
                 </td>
                 <td className={cls.tableRowVisible}>
-                    {boxer.bouts}
+                    {boxer.bouts ?? NO_DATA}
                 </td>
                 <td className={cls.tableRowVisible}>
-                    {boxer.won}
+                    {boxer.won ?? NO_DATA}
                 </td>
                 <td className={cls.tableRowVisible}>
                     {wonPercentCount(boxer.won, boxer.bouts)}

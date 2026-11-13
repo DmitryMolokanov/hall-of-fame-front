@@ -13,13 +13,36 @@
   transition: 0.5s;
 }
 
+// the 40px icon gives the button its height; without one, padding does
+.noIcon {
+  padding: 0.6rem 1.6rem;
+  line-height: calc(40px - 1.2rem);
+}
+
+.iconRight {
+  flex-direction: row-reverse;
+  padding-right: 0;
+  padding-left: 2rem;
+}
+
+.rightSideMove {
+  img {
+    transition: 0.3s;
+  }
+  &:hover {
+    img {
+      transform: translateX(6px);
+    }
+  }
+}
+
 .leftSideMove {
   img {
     transition: 0.3s;
   }
   &:hover {
     img {
-      transform: translateX(-10px);
+      transform: translateX(-6px);
     }
   }
 }

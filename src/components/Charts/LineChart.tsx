@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from 'react'
 import cls from './LineCharts.module.scss'
 
 interface PieChartProps {
-    bouts: string
+    bouts: string | null
     data: ChartDataType[]
 }
 
@@ -12,6 +12,7 @@ export const LineChart: FC<PieChartProps> = ({ bouts, data }) => {
     const [isMounted, setIsMounted] = useState(false)
 
     const allBouts = Number(bouts)
+    const hasRecord = bouts != null && allBouts > 0
 
 
     const getPercent = (statData: ChartDataType) => {
@@ -33,9 +34,10 @@ export const LineChart: FC<PieChartProps> = ({ bouts, data }) => {
         <div className={cls.chartContainer}>
             <div className={cls.allBouts}>
                 <span>All bouts:</span>
-                <span className={cls.allBoutsValue}>{allBouts}</span>
+                <span className={cls.allBoutsValue}>{hasRecord ? allBouts : '—'}</span>
             </div>
-            {data.map((item) => {
+            {!hasRecord && <p>Record not available</p>}
+            {hasRecord && data.map((item) => {
                 const percent = getPercent(item)
 
                 return <div className={cls.lineContainer}>
